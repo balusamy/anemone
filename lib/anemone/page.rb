@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'open-uri'
 require 'ostruct'
 require 'webrick/cookie'
 
@@ -52,7 +53,7 @@ module Anemone
     end
 
     #
-    # Array of distinct A tag HREFs from the page
+    # Array of distinct A tag HREFs SRC from the page
     #
     def links
       return @links unless @links.nil?
@@ -63,7 +64,29 @@ module Anemone
         u = a['href']
         next if u.nil? or u.empty?
         abs = to_absolute(URI(URI.escape(u))) rescue next
-        @links << abs if in_domain?(abs)
+        #@links << abs if in_domain?(abs)
+        @links << abs 
+      end
+      doc.search("//img[@src]").each do |a|
+        u = a['src']
+        next if u.nil? or u.empty?
+        abs = to_absolute(URI(URI.escape(u))) rescue next
+        #@links << abs if in_domain?(abs)
+        @links << abs 
+      end
+      doc.search("//link[@href]").each do |a|
+        u = a['href']
+        next if u.nil? or u.empty?
+        abs = to_absolute(URI(URI.escape(u))) rescue next
+        #@links << abs if in_domain?(abs)
+        @links << abs 
+      end
+      doc.search("//script[@src]").each do |a|
+        u = a['src']
+        next if u.nil? or u.empty?
+        abs = to_absolute(URI(URI.escape(u))) rescue next
+        #@links << abs if in_domain?(abs)
+        @links << abs 
       end
       @links.uniq!
       @links

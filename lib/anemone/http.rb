@@ -32,14 +32,40 @@ module Anemone
       begin
         url = URI(url) unless url.is_a?(URI)
         pages = []
-        get(url, referer) do |response, code, location, redirect_to, response_time|
-          pages << Page.new(location, :body => response.body.dup,
+        #get(url, referer) do |response, code, location, redirect_to, response_time|
+        get(url, referer) do |body, code, location, redirect_to, response_time, headers_hash, disk_cache|
+
+        #headers = response.to_hash
+
+          if (!disk_cache) 
+            store_response =<<HTMLCOMMENT
+<!--RESPONSE_START-->
+<!--res_code:-:#{code}-->
+<!--res_referer:-:#{referer}-->
+<!--res_depth:-:#{depth}-->
+<!--res_redirect_to:-:#{redirect_to}-->
+<!--res_response_time:-:#{response_time}-->
+<!--res_headers:-:#{headers_hash}-->
+<!--RESPONSE_END-->
+HTMLCOMMENT
+            body = store_response + body if headers_hash['content-type'].index('text/html')
+            #pages << Page.new(location, :body => store_response + response.body.dup,
+            pages << Page.new(location, :body => store_response + body,
                                       :code => code,
-                                      :headers => response.to_hash,
+                                      :headers => headers_hash,
                                       :referer => referer,
                                       :depth => depth,
                                       :redirect_to => redirect_to,
                                       :response_time => response_time)
+          else
+            pages << Page.new(location, :body => body,
+                                      :code => code,
+                                      :headers => headers_hash,
+                                      :referer => referer,
+                                      :depth => depth,
+                                      :redirect_to => redirect_to,
+                                      :response_time => response_time)
+          end
         end
 
         return pages
@@ -97,12 +123,85 @@ module Anemone
 
     private
 
+    def get_filename_dup(host, uri, create_folder = false)
+      folder = host
+      filename = uri
+
+      filename = filename + "index.html" if filename.end_with?("/") # Make sure the file name is valid
+      folders = filename.split("/")
+      filename = folders.pop
+
+      folder_name = File.join(".",folder,folders)
+      full_folder_name = @opts[:write_location] + "/" + folder_name if (@opts[:write_location])
+
+      if create_folder && (!File.exists? full_folder_name)
+          FileUtils.mkdir_p(full_folder_name) # Create the current subfolder
+      end
+
+      #print "Downloading '#{page.url}'..."
+      full_filename = File.join(".",full_folder_name,filename)
+
+      if File.directory? full_filename
+          full_filename = full_filename + ".1"
+      end
+
+      return full_filename
+    end
+
     #
     # Retrieve HTTP responses for *url*, including redirects.
     # Yields the response object, response code, and URI location
     # for each response.
     #
     def get(url, referer = nil)
+  
+      #puts "before force_download #{@opts[:force_download]}"
+      body = ''
+      if (!@opts[:force_download]) 
+        # if it is on the disk, read the content and construct response
+        full_filename = get_filename_dup url.host, url.request_uri.to_s    
+        #puts "inside force_download #{url.host}, #{url.request_uri.to_s}, #{full_filename}"
+
+        response_hash = Hash.new
+
+        if File.exists? full_filename 
+          File.open(full_filename,"r") do |f|
+            response_read = false;
+            f.each do |line|
+              if (!response_read) 
+
+                next if line.index('RESPONSE_START')
+
+                if line.index('RESPONSE_END') 
+                  response_read = true 
+                  next
+                end
+                line = line.chomp
+                line = line.gsub(/<!--res_/, '') 
+                line = line.gsub(/-->/, '') 
+                name, value = line.split(':-:')
+                response_hash[name] = value
+              else
+                body += line
+              end
+            end
+            f.close
+            #begin
+            #  f.read(response)
+            #  rescue Exception => e
+            #  puts "An error has occured while processing #{page.url}:"
+            #  puts e.message
+            #end
+          end
+          #puts "read - #{url} at #{full_filename}"
+
+          headers_hash = eval response_hash['headers']
+
+          yield body, response_hash['code'], url, response_hash['redirect_to'], response_hash['response_time'], headers_hash, true 
+
+        end 
+
+      else
       limit = redirect_limit
       loc = url
       begin
@@ -113,9 +212,11 @@ module Anemone
           response, response_time = get_response(loc, referer)
           code = Integer(response.code)
           redirect_to = response.is_a?(Net::HTTPRedirection) ? URI(response['location']).normalize : nil
-          yield response, code, loc, redirect_to, response_time
+          headers = response.to_hash
+          yield response.body, code, loc, redirect_to, response_time, headers, false
           limit -= 1
       end while (loc = redirect_to) && allowed?(redirect_to, url) && limit > 0
+      end
     end
 
     #

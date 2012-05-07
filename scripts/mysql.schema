@@ -1,0 +1,61 @@
+
+
+page_table
+   id int primary key 
+   jobid   int
+   url char secondar key
+   content_type char
+   res_code  int
+   res_depth  int
+   res_referer char
+   res_redirect_to char
+   res_response_time int
+   res_headers   BLOB
+
+job_table
+   id int primary key
+   site_id int foreign key
+   start_time
+   end_time
+
+site_table
+   id int primary key
+   url char
+   status int (live, test)
+
+
+
+CREATE DATABASE crawl
+
+CREATE TABLE `page` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jobid` int(11) NOT NULL,
+  `url` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(1500) COLLATE utf8_unicode_ci, 
+  `content_type` varchar(128) COLLATE utf8_unicode_ci,
+  `resp_code` int(11), 
+  `resp_depth` int(11), 
+  `resp_referer` varchar(1500) COLLATE utf8_unicode_ci, 
+  `resp_redirect_to` varchar(1500) COLLATE utf8_unicode_ci,
+  `resp_response_time` int(11), 
+  `resp_header` blob,
+   PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `job` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `siteid` int(11) NOT NULL,
+  `starttime` timestamp NOT NULL,
+  `endtime` timestamp NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `site` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11),
+   PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+
+
