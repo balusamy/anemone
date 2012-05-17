@@ -25,7 +25,9 @@ site_table
 
 
 
-CREATE DATABASE crawl
+drop DATABASE crawl;
+CREATE DATABASE crawl;
+use crawl;
 
 CREATE TABLE `page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
