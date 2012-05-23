@@ -28,6 +28,8 @@ module Anemone
     DEFAULT_OPTS = {
       # run 4 Tentacle threads to fetch pages
       :threads => 4,
+      # Prevent page_queue from using excessive RAM. Can indirectly limit rate of crawling. You'll additionally want to use discard_page_bodies and/or a non-memory 'storage' option
+      :max_page_queue_size => 100,
       # disable verbose output
       :verbose => false,
       # don't throw away the page response body after scanning it for links
@@ -66,6 +68,7 @@ module Anemone
       :force_download => false,
       # similar to wget option.  When ‘--no-clobber’ is specified, this behavior is suppressed, and Wget will refuse to download newer copies of ‘file’. Therefore, “no-clobber” is actually a misnomer in this mode—it's not clobbering that's prevented (as the numeric suffixes were already preventing clobbering), but rather the multiple version saving that's prevented.
       :no_clobber => false,
+      :jobid => 0,
     }
 
     # Create setter methods for all options to be called from the crawl block
@@ -88,7 +91,7 @@ module Anemone
         include_domains = opts[:include_domains].split(/,/)  
         @valid_domains = @valid_domains + include_domains
       end
-      puts "valid subdomains ... " 
+      #puts "valid subdomains ... " 
       puts @valid_domains
 
       @tentacles = []
@@ -171,6 +174,7 @@ module Anemone
 
       link_queue = Queue.new
       page_queue = Queue.new
+      #page_queue = SizedQueue.new(@opts[:max_page_queue_size])
 
       @opts[:threads].times do
         @tentacles << Thread.new { Tentacle.new(link_queue, page_queue, @opts).run }
@@ -178,12 +182,23 @@ module Anemone
 
       @urls.each{ |url| link_queue.enq(url) }
 
+      queue_count = 0
+
       loop do
         page = page_queue.deq
         @pages.touch_key page.url
-        puts "#{page.url} Queue: #{link_queue.size}" if @opts[:verbose]
+
+        #if @opts[:verbose]
+          #if queue_count == 50 
+            puts "#{page.url} Queue: #{link_queue.size}" if @opts[:verbose]
+          #  puts "#{page.url} Queue: #{link_queue.size}" 
+          #  queue_count = 0
+          #else
+          #  queue_count = queue_count + 1 
+          #end
+        #end
+
         do_page_blocks page
-        write_to_disk page 
         page.discard_doc! if @opts[:discard_page_bodies]
 
         links = links_to_follow page
@@ -212,86 +227,6 @@ module Anemone
     end
 
     private
-
-    def get_filename(host, uri, create_folder = false)
-      folder = host
-      filename = uri
-
-      filename = filename + "index.html" if filename.end_with?("/") # Make sure the file name is valid
-      folders = filename.split("/")
-      filename = folders.pop
-
-      folder_name = File.join(".",folder,folders)
-      full_folder_name = @opts[:write_location] + "/" + folder_name if (@opts[:write_location])
-
-      if create_folder && (!File.exists? full_folder_name)
-          FileUtils.mkdir_p(full_folder_name) # Create the current subfolder
-      end
-
-      #print "Downloading '#{page.url}'..."
-      full_filename = File.join(".",full_folder_name,filename)
-
-      if File.directory? full_filename
-          full_filename = full_filename + ".1"
-      end
-
-      return full_filename
-    end
-
-    def write_to_disk(page)
-      full_filename = get_filename page.url.host, page.url.request_uri.to_s, true                  
-
-      if ((File.exists? full_filename) && !@opts[:force_download])
-        #puts "Not written - #{page.url} at #{full_filename}"
-        return
-      end
-
-      File.open(full_filename,"w") do |f|
-        begin
-          f.write(page.body)
-        rescue Exception => e
-          puts "An error has occured while processing #{page.url}:"
-          puts e.message
-        end
-        f.close
-      end
-
-      puts "written - #{page.url} at #{full_filename}"
-    end
-
-    def write_to_disk1(page)
-      folder = page.url.host
-      filename = page.url.request_uri.to_s
-      filename = filename + "index.html" if filename.end_with?("/") # Make sure the file name is valid
-      folders = filename.split("/")
-      filename = folders.pop
-
-      folder_name = File.join(".",folder,folders)
-      full_folder_name = @opts[:write_location] + "/" + folder_name if (@opts[:write_location])
-
-      if !File.exists? full_folder_name 
-          FileUtils.mkdir_p(full_folder_name) # Create the current subfolder
-      end
-
-      #print "Downloading '#{page.url}'..."
-      full_filename = File.join(".",full_folder_name,filename) 
-
-      if File.directory? full_filename 
-          full_filename = full_filename + ".1"
-      end
-
-      File.open(full_filename,"w") do |f|
-        begin
-          f.write(page.body)
-        rescue Exception => e
-          puts "An error has occured while processing #{page.url}:"
-         puts e.message
-        end
-      end
-
-      puts "written - #{page.url} at #{full_filename}"
-
-    end
 
     def process_options
       @opts = DEFAULT_OPTS.merge @opts
@@ -364,6 +299,7 @@ module Anemone
     end
 
     def in_allowed_subdomain?(link)
+      return false if !link or !link.host
       opts[:crawl_subdomains] and @valid_domains.find{|domain| link.host.end_with?(domain)}
     end
 

@@ -1,63 +1,36 @@
-
-
-page_table
-   id int primary key 
-   jobid   int
-   url char secondar key
-   content_type char
-   res_code  int
-   res_depth  int
-   res_referer char
-   res_redirect_to char
-   res_response_time int
-   res_headers   BLOB
-
-job_table
-   id int primary key
-   site_id int foreign key
-   start_time
-   end_time
-
-site_table
-   id int primary key
-   url char
-   status int (live, test)
-
-
-
 drop DATABASE crawl;
 CREATE DATABASE crawl;
 use crawl;
 
-CREATE TABLE `page` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `jobid` int(11) NOT NULL,
-  `url` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
-  `filename` varchar(1500) COLLATE utf8_unicode_ci, 
-  `content_type` varchar(128) COLLATE utf8_unicode_ci,
-  `resp_code` int(11), 
-  `resp_depth` int(11), 
-  `resp_referer` varchar(1500) COLLATE utf8_unicode_ci, 
-  `resp_redirect_to` varchar(1500) COLLATE utf8_unicode_ci,
-  `resp_response_time` int(11), 
-  `resp_header` blob,
-   PRIMARY KEY (`id`)
+CREATE TABLE page (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  urlid varchar(128) NOT NULL,
+  jobid int(11) NOT NULL,
+  url varchar(1500) NOT NULL,
+  filename varchar(1500),
+  error varchar(1500),
+  type varchar(128),
+  code int(11),
+  depth int(11),
+  referer varchar(1500),
+  redirect varchar(1500),
+  time int(11),
+  header varchar(5000),
+   PRIMARY KEY (id),
+   UNIQUE KEY (urlid)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+CREATE TABLE job (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  siteid int(11) NOT NULL,
+  starttime timestamp NOT NULL,
+  endtime timestamp NOT NULL,
+   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `job` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `siteid` int(11) NOT NULL,
-  `starttime` timestamp NOT NULL,
-  `endtime` timestamp NOT NULL,
-   PRIMARY KEY (`id`)
+CREATE TABLE site (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  url varchar(1500) NOT NULL,
+  status int(11),
+   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `site` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
-  `status` int(11),
-   PRIMARY KEY (`id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-
-

@@ -1,6 +1,10 @@
 require 'net/https'
 require 'anemone/page'
 require 'anemone/cookie_store'
+#require "base64"
+require 'digest/md5'
+#require 'digest/sha1'
+#require 'digest/sha2'
 
 module Anemone
   class HTTP
@@ -20,37 +24,44 @@ module Anemone
     # Fetch a single Page from the response of an HTTP request to *url*.
     # Just gets the final destination page.
     #
-    def fetch_page(url, referer = nil, depth = nil)
-      fetch_pages(url, referer, depth).last
+    def fetch_page(url, referer = nil, depth = nil, dbcon = nil)
+      fetch_pages(url, referer, depth, dbcon).last
     end
 
     #
     # Create new Pages from the response of an HTTP request to *url*,
     # including redirects
     #
-    def fetch_pages(url, referer = nil, depth = nil)
+    def fetch_pages(url, referer = nil, depth = nil, dbcon = nil)
       begin
         url = URI(url) unless url.is_a?(URI)
         pages = []
         #get(url, referer) do |response, code, location, redirect_to, response_time|
-        get(url, referer) do |body, code, location, redirect_to, response_time, headers_hash, disk_cache|
-
-        #headers = response.to_hash
+        get(url, referer, dbcon) do |body, code, location, redirect_to, response_time, headers_hash, disk_cache, content_type, filename|
 
           if (!disk_cache) 
-            store_response =<<HTMLCOMMENT
-<!--RESPONSE_START-->
-<!--res_code:-:#{code}-->
-<!--res_referer:-:#{referer}-->
-<!--res_depth:-:#{depth}-->
-<!--res_redirect_to:-:#{redirect_to}-->
-<!--res_response_time:-:#{response_time}-->
-<!--res_headers:-:#{headers_hash}-->
-<!--RESPONSE_END-->
-HTMLCOMMENT
-            body = store_response + body if headers_hash['content-type'].index('text/html')
-            #pages << Page.new(location, :body => store_response + response.body.dup,
-            pages << Page.new(location, :body => store_response + body,
+
+            url_string = location.to_s
+            url_id = Digest::MD5.new << url_string
+
+            depth = 1 if (!depth)
+            referer = "" if (!referer)
+            redirect_to = "" if (!redirect_to)
+            jobid = @opts[:jobid] 
+
+            if (code == 200) 
+              err = write_to_disk location, body if (code == 200) 
+            else
+              err = "FILE NOT WRITTEN"
+            end
+
+            headers_hash_string = Mysql.escape_string(headers_hash.to_s)
+
+            #puts "inserting .. #{url} and id is #{url_id} and code is #{code}"
+
+            rs = dbcon.query("insert into page(urlid,jobid,url,filename,error,type,code,depth,referer,redirect,time, header) values ('#{url_id}',#{jobid},'#{url_string}','#{filename}','#{err}','#{content_type}',#{code},#{depth},'#{referer}','#{redirect_to}',#{response_time},'#{headers_hash_string}')")
+
+            pages << Page.new(location, :body => body,
                                       :code => code,
                                       :headers => headers_hash,
                                       :referer => referer,
@@ -148,74 +159,136 @@ HTMLCOMMENT
       return full_filename
     end
 
+    def get_filename(host, uri, create_folder = false)
+      folder = host
+      filename = uri
+
+      filename = filename + "index.html" if filename.end_with?("/") # Make sure the file name is valid
+      folders = filename.split("/")
+      filename = folders.pop
+
+      folder_name = File.join(".",folder,folders)
+      full_folder_name = @opts[:write_location] + "/" + folder_name if (@opts[:write_location])
+
+      if create_folder && (!File.exists? full_folder_name)
+          FileUtils.mkdir_p(full_folder_name) # Create the current subfolder
+      end
+
+      #print "Downloading '#{page.url}'..."
+      full_filename = File.join(".",full_folder_name,filename)
+
+      if File.directory? full_filename
+          full_filename = full_filename + ".1"
+      end
+
+      return full_filename
+    end
+
+    def write_to_disk(url, body)
+      full_filename = get_filename url.host, url.request_uri.to_s, true
+      err = nil
+
+      if ((File.exists? full_filename) && !@opts[:force_download])
+        err = "File exists"
+      else
+        start = Time.now()
+        #File.open(full_filename,"w") do |f|
+        #  begin
+        #    f.write(body)
+        #  rescue Exception => e
+        #    puts "An error has occured while processing #{page.url}:"
+        #    err = "An error has occured while processing #{page.url}:"
+        #    puts e.message
+        #  end
+        #  f.close
+        #end
+        IO.binwrite(full_filename, body)
+        finish = Time.now()
+        file_write_time = ((finish - start) * 1000).round
+        puts "file write time #{file_write_time} - #{url}"
+      end
+
+      if (!err) 
+          puts "written - #{url} at #{full_filename}"
+      else 
+          puts "err - #{url} at #{full_filename}"
+      end
+      return err
+
+    end
+
     #
     # Retrieve HTTP responses for *url*, including redirects.
     # Yields the response object, response code, and URI location
     # for each response.
     #
-    def get(url, referer = nil)
+    def get(url, referer = nil, dbcon = nil)
   
       #puts "before force_download #{@opts[:force_download]}"
       body = ''
-      if (!@opts[:force_download]) 
+      full_filename = get_filename url.host, url.request_uri.to_s    
+
+      if ((File.exists? full_filename) && (!@opts[:force_download]))
         # if it is on the disk, read the content and construct response
-        full_filename = get_filename_dup url.host, url.request_uri.to_s    
         #puts "inside force_download #{url.host}, #{url.request_uri.to_s}, #{full_filename}"
 
         response_hash = Hash.new
 
-        if File.exists? full_filename 
-          File.open(full_filename,"r") do |f|
-            response_read = false;
-            f.each do |line|
-              if (!response_read) 
+        url_string = url.to_s
+        url_id = Digest::MD5.new << url_string
+       
+        rs = dbcon.query("select * from page where urlid = '#{url_id}'")
 
-                next if line.index('RESPONSE_START')
+        rs.each do |row|
+          response_hash['content-type'] = row[6]
+          response_hash['code'] = row[7].to_i
+          response_hash['depth'] = row[8].to_i
+          response_hash['referer'] = row[9]
+          response_hash['redirect_to'] = row[10]
+          response_hash['response_time'] = row[11].to_i
+          response_hash['header'] = row[12]
+        end
 
-                if line.index('RESPONSE_END') 
-                  response_read = true 
-                  next
-                end
-                line = line.chomp
-                line = line.gsub(/<!--res_/, '') 
-                line = line.gsub(/-->/, '') 
-                name, value = line.split(':-:')
-                response_hash[name] = value
-              else
-                body += line
-              end
-            end
-            f.close
-            #begin
-            #  f.read(response)
-            #  rescue Exception => e
-            #  puts "An error has occured while processing #{page.url}:"
-            #  puts e.message
-            #end
-          end
-          #puts "read - #{url} at #{full_filename}"
 
-          headers_hash = eval response_hash['headers']
+        #if (((response_hash['depth'] < @opts[:depth_limit])||(response_hash['depth'] == 1)) && (response_hash['code'] == 200) && (File.exists? full_filename))
+        if (response_hash['code'] == 200) 
+          start = Time.now()
+          #File.open(full_filename,"r") do |f|
+          #  f.each do |line|
+          #      body += line
+          #  end
+          #  f.close
+          #end
 
-          yield body, response_hash['code'], url, response_hash['redirect_to'], response_hash['response_time'], headers_hash, true 
+          body = IO.binread(full_filename)
 
-        end 
+          finish = Time.now()
+          file_read_time = ((finish - start) * 1000).round
+
+          #puts "file read time #{file_read_time} - #{url}"
+
+          headers_hash = eval response_hash['header']
+          #headers_hash = response_hash['header']
+
+          yield body, response_hash['code'], url, response_hash['redirect_to'], response_hash['response_time'], headers_hash, true, headers_hash['content-type'], full_filename
+        end # if ((response_hash['depth']...
 
       else
-      limit = redirect_limit
-      loc = url
-      begin
-          # if redirected to a relative url, merge it with the host of the original
-          # request url
-          loc = url.merge(loc) if loc.relative?
+          limit = redirect_limit
+          loc = url
+          begin
+            # if redirected to a relative url, merge it with the host of the original
+            # request url
+            loc = url.merge(loc) if loc.relative?
 
-          response, response_time = get_response(loc, referer)
-          code = Integer(response.code)
-          redirect_to = response.is_a?(Net::HTTPRedirection) ? URI(response['location']).normalize : nil
-          headers = response.to_hash
-          yield response.body, code, loc, redirect_to, response_time, headers, false
-          limit -= 1
-      end while (loc = redirect_to) && allowed?(redirect_to, url) && limit > 0
+            response, response_time = get_response(loc, referer)
+            code = Integer(response.code)
+            redirect_to = response.is_a?(Net::HTTPRedirection) ? URI(response['location']).normalize : nil
+            #puts "URL: #{url}, code: #{code} , redirect:  #{redirect_to}"
+            headers = response.to_hash
+            yield response.body, code, loc, redirect_to, response_time, headers, false, headers['content-type'], full_filename
+            limit -= 1
+          end while (loc = redirect_to) && allowed?(redirect_to, url) && limit > 0
       end
     end
 
@@ -283,6 +356,6 @@ HTMLCOMMENT
     def allowed?(to_url, from_url)
       to_url.host.nil? || (to_url.host == from_url.host)
     end
-
   end
 end
+

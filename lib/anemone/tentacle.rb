@@ -1,4 +1,5 @@
 require 'anemone/http'
+require 'mysql'
 
 module Anemone
   class Tentacle
@@ -11,6 +12,10 @@ module Anemone
       @page_queue = page_queue
       @http = Anemone::HTTP.new(opts)
       @opts = opts
+
+      # Create mysql connection per thread
+      @con = Mysql.new('localhost', 'root', 'purp1eb0y', 'crawl')
+
     end
 
     #
@@ -22,11 +27,11 @@ module Anemone
         link, referer, depth = @link_queue.deq
 
         break if link == :END
-
-        @http.fetch_pages(link, referer, depth).each { |page| @page_queue << page }
+        @http.fetch_pages(link, referer, depth, @con).each { |page| @page_queue << page }
 
         delay
       end
+      @con.close
     end
 
     private
