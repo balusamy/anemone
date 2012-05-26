@@ -29,13 +29,18 @@ module Anemone
       # run 4 Tentacle threads to fetch pages
       :threads => 4,
       # Prevent page_queue from using excessive RAM. Can indirectly limit rate of crawling. You'll additionally want to use discard_page_bodies and/or a non-memory 'storage' option
-      :max_page_queue_size => 100,
+      :max_page_queue_size => 1000,
+      # if link queue length reaches this limit, wait for threads to consume them
+      :max_link_queue_size => 100000,
+      # filename containing list of URLs to crawl
+      :filename => nil,
       # disable verbose output
       :verbose => false,
       # don't throw away the page response body after scanning it for links
-      :discard_page_bodies => false,
+      :discard_page_bodies => true,
       # identify self as Anemone/VERSION
-      :user_agent => "Anemone/#{Anemone::VERSION}",
+      #:user_agent => "Anemone/#{Anemone::VERSION}",
+      :user_agent => "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
       # no delay between requests
       :delay => 0,
       # don't obey the robots exclusion protocol
@@ -49,7 +54,7 @@ module Anemone
       # Hash of cookie name => value to send with HTTP requests
       :cookies => nil,
       # accept cookies from the server and send them back?
-      :accept_cookies => false,
+      :accept_cookies => true,
       # skip any link with a query string? e.g. http://foo.com/?u=user
       :skip_query_strings => false,
       # proxy server hostname 
@@ -86,6 +91,14 @@ module Anemone
       @urls = [urls].flatten.map{ |url| url.is_a?(URI) ? url : URI(url) }
       @urls.each{ |url| url.path = '/' if url.path.empty? }
       @valid_domains = @urls.map{|u| [u.host,u.host.gsub(/^www\./,'.')]}.flatten.compact.uniq
+
+      if (opts[:filename]) 
+        list = IO.binread(opts[:filename])
+        alist = list.split "\n"
+        
+          # override urls collected based on :urls command line option but @valid_domains will contain all the domains allowed to crawl
+          @urls = alist.map {|u| u.is_a?(URI) ? u : URI(u)}
+      end
 
       if (opts[:include_domains]) 
         include_domains = opts[:include_domains].split(/,/)  
@@ -173,14 +186,15 @@ module Anemone
       return if @urls.empty?
 
       link_queue = Queue.new
-      page_queue = Queue.new
-      #page_queue = SizedQueue.new(@opts[:max_page_queue_size])
+      #page_queue = Queue.new
+      page_queue = SizedQueue.new(@opts[:max_page_queue_size])
 
       @opts[:threads].times do
         @tentacles << Thread.new { Tentacle.new(link_queue, page_queue, @opts).run }
       end
 
-      @urls.each{ |url| link_queue.enq(url) }
+      #@urls.each{ |url| link_queue.enq(url) }
+      @urls.each{ |url| link_queue << [url, nil, 1] }
 
       queue_count = 0
 
@@ -198,8 +212,11 @@ module Anemone
           #end
         #end
 
+if (!page.doc) 
+  puts "durai page.doc is nil"
+end
         do_page_blocks page
-        page.discard_doc! if @opts[:discard_page_bodies]
+        page.discard_doc! true if @opts[:discard_page_bodies]
 
         links = links_to_follow page
         links.each do |link|
@@ -208,6 +225,16 @@ module Anemone
         @pages.touch_keys links
 
         @pages[page.url] = page
+
+        # if link_queue grows faster than threads can consume them
+        # pass until threads consumed enough links.
+        # Fixes OutOfMemory error when crawling large sites
+        # TEMPORARY FIX. (Is there a better solution?)
+        #until link_queue.length < @opts[:link_queue_max_limit]
+        #  Thread.pass
+        #  sleep 1.0
+        #end
+    
 
         # if we are done with the crawl, tell the threads to end
         if link_queue.empty? and page_queue.empty?
@@ -286,6 +313,9 @@ module Anemone
     # Returns +false+ otherwise.
     #
     def visit_link?(link, from_page = nil)
+
+      #return true if (from_page && from_page.ignore_depth)
+
       !@pages.has_page?(link) &&
       !skip_link?(link) &&
       !skip_query_string?(link) &&

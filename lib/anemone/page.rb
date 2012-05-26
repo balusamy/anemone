@@ -30,6 +30,7 @@ module Anemone
     attr_accessor :referer
     # Response time of the request for this page in milliseconds
     attr_accessor :response_time
+    attr_accessor :ignore_depth
 
     #
     # Create a new page
@@ -50,6 +51,7 @@ module Anemone
       @error = params[:error]
 
       @fetched = !params[:code].nil?
+      @ignore_depth = false
     end
 
     #
@@ -103,8 +105,9 @@ module Anemone
     #
     # Delete the Nokogiri document and response body to conserve memory
     #
-    def discard_doc!
-      links # force parsing of page links before we trash the document
+    def discard_doc!(no_links_process=false)
+      # force parsing of page links before we trash the document
+      links if !no_links_process
       @doc = @body = nil
     end
 

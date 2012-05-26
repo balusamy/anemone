@@ -59,7 +59,17 @@ module Anemone
 
             #puts "inserting .. #{url} and id is #{url_id} and code is #{code}"
 
-            rs = dbcon.query("insert into page(urlid,jobid,url,filename,error,type,code,depth,referer,redirect,time, header) values ('#{url_id}',#{jobid},'#{url_string}','#{filename}','#{err}','#{content_type}',#{code},#{depth},'#{referer}','#{redirect_to}',#{response_time},'#{headers_hash_string}')")
+            rs = dbcon.query("select * from page where urlid = '#{url_id}'")
+            num_results = rs.num_rows
+            rs.free
+
+            if (num_results == 0)
+              rs = dbcon.query("insert into page(urlid,jobid,url,filename,error,type,code,depth,referer,redirect,time, header) values ('#{url_id}',#{jobid},'#{url_string}','#{filename}','#{err}','#{content_type}',#{code},#{depth},'#{referer}','#{redirect_to}',#{response_time},'#{headers_hash_string}')")
+            else
+              rs = dbcon.query("update page set jobid=#{jobid},url='#{url_string}',filename='#{filename}',error='#{err}',type='#{content_type}',code=#{code},depth=#{depth},referer='#{referer}',redirect='#{redirect_to}',time=#{response_time},header='#{headers_hash_string}' where urlid='#{url_id}'")
+            end
+
+            rs.free if !rs.nil?
 
             pages << Page.new(location, :body => body,
                                       :code => code,
@@ -248,7 +258,6 @@ module Anemone
           response_hash['response_time'] = row[11].to_i
           response_hash['header'] = row[12]
         end
-
 
         #if (((response_hash['depth'] < @opts[:depth_limit])||(response_hash['depth'] == 1)) && (response_hash['code'] == 200) && (File.exists? full_filename))
         if (response_hash['code'] == 200) 
