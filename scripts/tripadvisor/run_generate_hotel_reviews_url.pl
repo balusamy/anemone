@@ -7,17 +7,6 @@
 "./hotels/xae",
 "./hotels/xaf",
 "./hotels/xag",
-"./hotels/xah",
-"./hotels/xai",
-"./hotels/xaj",
-"./hotels/xak",
-"./hotels/xal",
-"./hotels/xam",
-"./hotels/xan",
-"./hotels/xao",
-"./hotels/xap",
-"./hotels/xaq",
-"./hotels/xar",
 );
 
 foreach $f (@files) {

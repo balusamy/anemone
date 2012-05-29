@@ -7,7 +7,7 @@ require 'anemone'
 
 file = ARGV[0]
 
-file = "./hotels/xaa" if file.nil?
+file = "./hotels/xaa_hotels_reviews_page_urls.txt" if file.nil?
 
 hotels = IO.binread(file)
 
