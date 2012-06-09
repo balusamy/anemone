@@ -185,7 +185,7 @@ module Anemone
       end
 
       #print "Downloading '#{page.url}'..."
-      full_filename = File.join(".",full_folder_name,filename)
+      full_filename = File.join(full_folder_name,filename)
 
       if File.directory? full_filename
           full_filename = full_filename + ".1"
