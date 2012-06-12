@@ -17,20 +17,25 @@ outfile = "#{file}_hotels_reviews_page_urls.txt"
 
 fd_h = File.new(outfile, "w")
 
-Anemone.crawl(hotels_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "data_ta", :force_download => false, :threads => 6, :jobid => 1) do |anemone|
+Anemone.crawl(hotels_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "/data/crawl/ta/data_ta", :force_download => false, :threads => 1, :jobid => 1) do |anemone|
 
   anemone.on_every_page do |page|
 
-    review_total = 0
-    page.doc.css('span.pgCount').each do |link|
-      #puts link.content
+    if (!page.doc)
+        puts "page not found " + page.url.to_s
+    else
+        review_total = 0
+        page.doc.css('span.pgCount').each do |link|
+          #puts link.content
 
-      review_page_stats = link.content.split(' ')
-      review_total = review_page_stats[2].to_i
+          review_page_stats = link.content.split(' ')
 
-      fd_h.puts page.url # write the first page.
+          review_total = review_page_stats[2].gsub(",", '')
+          review_total = review_total.to_i
 
-      if (review_total > 10)
+          fd_h.puts page.url # write the first page.
+
+          if (review_total > 10)
         # write other pagination urls
         incr_per_page = 10
         link = page.url.to_s
@@ -41,7 +46,8 @@ Anemone.crawl(hotels_urls, :depth_limit => 0, :verbose => true, :crawl_subdomain
           page_start_count += incr_per_page
           fd_h.puts "#{url_split[0]}-#{url_split[1]}-#{url_split[2]}-#{url_split[3]}-" + "or" + page_start_count.to_s + "-#{url_split[4]}-#{url_split[5]}\n"
         end
-      end
+          end
+        end
     end
   end
 

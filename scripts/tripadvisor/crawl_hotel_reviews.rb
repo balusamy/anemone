@@ -13,8 +13,7 @@ hotels = IO.binread(file)
 
 hotels_urls = hotels.split("\n")
 
-
-Anemone.crawl(hotels_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "data_ta_hotel_and_reviews", :force_download => false, :threads => 6, :jobid => 1) do |anemone|
+Anemone.crawl(hotels_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "/data/crawl/ta/data_ta_hotel_and_reviews/data_ta_hotel_and_reviews", :force_download => false, :threads => 1, :jobid => 1) do |anemone|
 
 end
 

@@ -1,12 +1,15 @@
 
+
+$location = "/data/crawl/ta/hotels";
+
 @files = (
-"./hotels/xaa",
-"./hotels/xab",
-"./hotels/xac",
-"./hotels/xad",
-"./hotels/xae",
-"./hotels/xaf",
-"./hotels/xag",
+#"$location/xaa",
+"$location/xab",
+"$location/xac",
+"$location/xad",
+"$location/xae",
+"$location/xaf",
+"$location/xag"
 );
 
 foreach $f (@files) {
