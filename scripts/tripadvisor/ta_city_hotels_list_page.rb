@@ -5,15 +5,20 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 
 require 'anemone'
 
+location = "/data/crawl/ta/"
+
+write_loc = location + "/data_ta"
+output_file = location + "/hotels_page.txt"
+
 hotels_by_city = IO.binread("all_hotels_in_a_city.txt")
 
 city_urls = hotels_by_city.split(/\n/)
 
-fd_h = File.new("hotels_page.txt", "w")
+fd_h = File.new(output_file, "w")
 
 domain = "http://www.tripadvisor.com"
 
-Anemone.crawl(city_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "data_ta", :force_download => false, :threads => 8, :jobid => 1) do |anemone|
+Anemone.crawl(city_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => write_loc, :force_download => false, :threads => 8, :jobid => 1) do |anemone|
 
   anemone.on_every_page do |page|
     page.doc.css('div.quality').each do |link|
