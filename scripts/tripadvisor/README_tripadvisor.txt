@@ -25,6 +25,7 @@ To crawl tripadvisor:
 
 * Crawl hotel landing page and generate the reviews pagination urls. 
     * perl run_generate_hotel_reviews_url.pl
+    * perl run_crawl_hotel_reviews.pl.pl
     * This also stores the hotels and reviews contents in a separate directory.
     * Write the reviews pagination urls into xaa_hotels_reviews_page_urls.txt etc.
 
