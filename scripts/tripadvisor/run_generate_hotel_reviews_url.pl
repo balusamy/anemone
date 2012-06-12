@@ -3,7 +3,7 @@
 $location = "/data/crawl/ta/hotels";
 
 @files = (
-#"$location/xaa",
+"$location/xaa",
 "$location/xab",
 "$location/xac",
 "$location/xad",
