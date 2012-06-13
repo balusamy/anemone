@@ -13,7 +13,7 @@ puts prefix
 
 hotels = IO.binread(file)
 
-feed_location = "/data/crawl/ta/"
+feed_location = "/data/crawl/ta/reviews_feed/"
 
 outfile = feed_location + prefix + "_ta_reviews_feed.txt"
 fd_h = File.new(outfile, "w")

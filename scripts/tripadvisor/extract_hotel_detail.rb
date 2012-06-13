@@ -9,7 +9,7 @@ file = "./hotels/xaa_hotels_reviews_page_urls.txt" if file.nil?
 
 hotels = IO.binread(file)
 
-feed_location = "/data/crawl/ta/"
+feed_location = "/data/crawl/ta/hotel_feed/"
 outfile = feed_location + "hotel_feed.txt"
 fd_h = File.new(outfile, "w")
 
