@@ -16,7 +16,7 @@ filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_R
 
 hotel_url = filename.split('-')
 
-url = 'http://www.tripadvisor.com/Hotel_Review-g1017328-d247900-Reviews-or10-Alpine_Village_Suites-Taos_Ski_Valley_Taos_County_New_Mexico.html#REVIEWS'
+url = 'http://www.tripadvisor.com/Hotel_Review-g1017328-d247900-Reviews-or10-Alpine_Village_Suites-Taos_Ski_Valley_Taos_County_New_Mexico.html'
 #hotel_url = @url.split('-')
 
 body = IO.binread(filename)
@@ -69,7 +69,9 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
 
     #Review information
     extracted_info['title'] = link.css('div.quote').text.strip
-    extracted_info['description'] = link.css('div.partial_entry').text.strip
+    #extracted_info['description'] = link.css('div>p.partial_entry').text.strip
+    extracted_info['description'] = link.css('div>p.partial_entry').text.gsub("More", '').strip
+
     extracted_info['rating'] = link.css('img.sprite-ratings')[0].values[2] # img alt text
     extracted_info['date'] = link.css('span.ratingDate').text.strip
     extracted_info['helpful'] = link.css('div.hlpNmbr').text.strip

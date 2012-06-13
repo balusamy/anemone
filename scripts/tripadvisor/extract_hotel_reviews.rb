@@ -87,7 +87,8 @@ hotels_urls.each do |url|
 
         #Review information
         extracted_info['title'] = link.css('div.quote').text.strip
-        extracted_info['description'] = link.css('div.partial_entry').text.strip
+        extracted_info['description'] = link.css('div>p.partial_entry').text.gsub("More", '').strip
+
         extracted_info['rating'] = link.css('img.sprite-ratings')[0].values[2] # img alt text
         extracted_info['date'] = link.css('span.ratingDate').text.strip
         extracted_info['helpful'] = link.css('div.hlpNmbr').text.strip
