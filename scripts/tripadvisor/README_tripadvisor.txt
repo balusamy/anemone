@@ -30,6 +30,7 @@ To crawl tripadvisor:
     * Write the reviews pagination urls into xaa_hotels_reviews_page_urls.txt etc.
 
 * Crawl reviews from hotel landing page pagination urls.
+    * perl run_extract_hotel_detail.pl
     * perl run_extract_hotel_reviews.pl
     * download the content and store them
 
