@@ -1,6 +1,12 @@
 require 'nokogiri'
 require 'open-uri'
 
+def field_clean_up(node)
+    tmp = node.text.gsub("More", '').strip
+    tmp = tmp.gsub("\n", ' ')
+    return tmp
+end
+
 location = "/data/crawl/ta/data_ta_hotel_and_reviews"
 
 file = ARGV[0]
@@ -87,11 +93,19 @@ hotels_urls.each do |url|
 
         #Review information
         extracted_info['title'] = link.css('div.quote').text.strip
-        extracted_info['description'] = link.css('div>p.partial_entry').text.gsub("More", '').strip
+        extracted_info['description'] = field_clean_up link.css('div>div.entry>p.partial_entry')
 
         extracted_info['rating'] = link.css('img.sprite-ratings')[0].values[2] # img alt text
         extracted_info['date'] = link.css('span.ratingDate').text.strip
         extracted_info['helpful'] = link.css('div.hlpNmbr').text.strip
+
+        extracted_info['mgrdate'] = field_clean_up link.css('div>div.mgrRspnInline>div.header>div.res_date')
+        extracted_info['mgrreply'] = field_clean_up link.css('div>div.mgrRspnInline>p.partial_entry')
+        extracted_info['mgrdate'] = field_clean_up link.css('div>div.mgrRspnInline>div.header>div.res_date')
+
+        # Since div.res_date is part of div.header, I couldnt figure out a way to just extract manager_header without res_date.  So as a workaround remove the res_date element before extracting text() from div.header.  But also keep in mind that res_date is also required, so extract that before removing res_date.
+        link.css('div>div.mgrRspnInline>div.header>div.res_date').remove
+        extracted_info['mgrheader'] = field_clean_up link.css('div>div.mgrRspnInline>div.header')
 
         review_export = ''
         extracted_info.each do |key, val|

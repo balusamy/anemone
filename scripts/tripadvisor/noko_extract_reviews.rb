@@ -1,6 +1,12 @@
 require 'nokogiri'
 require 'open-uri'
 
+def field_clean_up(node)
+    tmp = node.text.gsub("More", '').strip
+    tmp = tmp.gsub("\n", ' ')
+    return tmp
+end
+
 #Read the file from disk
 #filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1006448-d594942-Reviews-Hillside_Bed_and_Breakfast-Halfway_Oregon.html'
 
@@ -13,10 +19,11 @@ require 'open-uri'
 
 filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g29668-d1930984-Reviews-or10-Augusta_Wine_Country_Inn-Augusta_Missouri.html'
 #http://www.tripadvisor.com/Hotel_Review-g29668-d1930984-Reviews-or10-Augusta_Wine_Country_Inn-Augusta_Missouri.html
+filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g32904-d1097898-Reviews-Marriott_Pleasanton-Pleasanton_California.html'
 
 hotel_url = filename.split('-')
 
-url = 'http://www.tripadvisor.com/Hotel_Review-g1017328-d247900-Reviews-or10-Alpine_Village_Suites-Taos_Ski_Valley_Taos_County_New_Mexico.html'
+#url = 'http://www.tripadvisor.com/Hotel_Review-g1017328-d247900-Reviews-or10-Alpine_Village_Suites-Taos_Ski_Valley_Taos_County_New_Mexico.html'
 #hotel_url = @url.split('-')
 
 body = IO.binread(filename)
@@ -42,6 +49,9 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
     extracted_info['reviewer_num_reviews'] = nil
     extracted_info['reviewer_num_cities'] = nil
     extracted_info['reviewer_profile_id'] = nil # anonymous ta member doesnt have div.memberOverlayLink.  So capture mbrName_D39698195C8ECF57D1F016D23227A6DE
+    extracted_info['mgrreply'] = nil
+    extracted_info['mgrdate'] = nil
+    extracted_info['mgrheader'] = nil
 
     # Review id
     extracted_info['reviewid'] =  link['id']
@@ -59,7 +69,7 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
 
     if ((!link.css('div.memberOverlayLink').nil?) && !(link.css('div.memberOverlayLink')[0]).nil?)
         #puts link.css('div.memberOverlayLink')[0]
-        extracted_info['reviewer_id'] = link.css('div.memberOverlayLink')[0].values[0]
+        extracted_info['reviewer_id'] = link.css('div.memberOverlayLink')[1]
     end
     extracted_info['reviewer_location'] = link.css('div.location').text.strip
     extracted_info['reviewer_title'] = link.css('div.totalReviewBadge>div.reviewerTitle').text.strip
@@ -69,12 +79,20 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
 
     #Review information
     extracted_info['title'] = link.css('div.quote').text.strip
-    #extracted_info['description'] = link.css('div>p.partial_entry').text.strip
-    extracted_info['description'] = link.css('div>p.partial_entry').text.gsub("More", '').strip
+
+    extracted_info['description'] = field_clean_up link.css('div>div.entry>p.partial_entry')
 
     extracted_info['rating'] = link.css('img.sprite-ratings')[0].values[2] # img alt text
     extracted_info['date'] = link.css('span.ratingDate').text.strip
+    extracted_info['date'] = extracted_info['date'].gsub("\n", ' ')
     extracted_info['helpful'] = link.css('div.hlpNmbr').text.strip
+
+    extracted_info['mgrdate'] = field_clean_up link.css('div>div.mgrRspnInline>div.header>div.res_date')
+    extracted_info['mgrreply'] = field_clean_up link.css('div>div.mgrRspnInline>p.partial_entry')
+    extracted_info['mgrdate'] = field_clean_up link.css('div>div.mgrRspnInline>div.header>div.res_date')
+    # Since div.res_date is part of div.header, I couldnt figure out a way to just extract manager_header without res_date.  So as a workaround remove the res_date element before extracting text() from div.header.  But also keep in mind that res_date is also required, so extract that before removing res_date.
+    link.css('div>div.mgrRspnInline>div.header>div.res_date').remove
+    extracted_info['mgrheader'] = field_clean_up link.css('div>div.mgrRspnInline>div.header')
 
     review_export = ''
     extracted_info.each do |key, val|
@@ -82,7 +100,6 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
     end
     puts review_export
 end
-
 
 
 
