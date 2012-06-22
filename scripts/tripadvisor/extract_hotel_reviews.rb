@@ -7,15 +7,14 @@ def field_clean_up(node)
     return tmp
 end
 
-location = "/data/crawl/ta/data_ta_hotel_and_reviews"
+html_location = "/data/crawl/ta/data_ta_hotel_and_reviews"
 
 file = ARGV[0]
 
 file = "./hotels/xaa_hotels_reviews_page_urls.txt" if file.nil?
 
-prefix = file.split("/")[2].split("_")[0]
-
-puts prefix
+#prefix = file.split("/")[2].split("_")[0]
+prefix = File.basename(file).split("-")[0]
 
 hotels = IO.binread(file)
 
@@ -30,7 +29,7 @@ hotels_urls.each do |url|
 
     hotel_url = url.split('-')
 
-    filename = location + "/" + url.gsub("http://", '')
+    filename = html_location + "/" + url.gsub("http://", '')
 
     #Read the file from disk
     #filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1006448-d594942-Reviews-Hillside_Bed_and_Breakfast-Halfway_Oregon.html'
@@ -55,6 +54,7 @@ hotels_urls.each do |url|
         extracted_info['title'] = nil
         extracted_info['rating'] = nil
         extracted_info['date'] = nil
+        extracted_info['viamobile'] = nil # rated via mobile
         extracted_info['helpful'] = nil
         extracted_info['description'] = nil
         extracted_info['reviewer_name'] = nil
@@ -65,6 +65,9 @@ hotels_urls.each do |url|
         extracted_info['reviewer_num_reviews'] = nil
         extracted_info['reviewer_num_cities'] = nil
         extracted_info['reviewer_profile_id'] = nil # anonymous ta member doesnt have div.memberOverlayLink.  So capture mbrName_D39698195C8ECF57D1F016D23227A6DE
+        extracted_info['mgrreply'] = nil
+        extracted_info['mgrdate'] = nil
+        extracted_info['mgrheader'] = nil
 
         # Review id
         extracted_info['reviewid'] =  link['id']
@@ -97,6 +100,11 @@ hotels_urls.each do |url|
 
         extracted_info['rating'] = link.css('img.sprite-ratings')[0].values[2] # img alt text
         extracted_info['date'] = link.css('span.ratingDate').text.strip
+        extracted_info['date'] = extracted_info['date'].gsub("\n", ' ')
+        extracted_info['date'] = extracted_info['date'].gsub("NEW", '')
+        extracted_info['date'] = extracted_info['date'].strip
+        extracted_info['viamobile'] = link.css('div.reviewItemInline>a.viaMobile').text.strip
+
         extracted_info['helpful'] = link.css('div.hlpNmbr').text.strip
 
         extracted_info['mgrdate'] = field_clean_up link.css('div>div.mgrRspnInline>div.header>div.res_date')

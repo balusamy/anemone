@@ -19,17 +19,19 @@ end
 
 filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g29668-d1930984-Reviews-or10-Augusta_Wine_Country_Inn-Augusta_Missouri.html'
 #http://www.tripadvisor.com/Hotel_Review-g29668-d1930984-Reviews-or10-Augusta_Wine_Country_Inn-Augusta_Missouri.html
-filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g32904-d1097898-Reviews-Marriott_Pleasanton-Pleasanton_California.html'
+#filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g32904-d1097898-Reviews-Marriott_Pleasanton-Pleasanton_California.html'
+#filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g60872-d111582-Reviews-Four_Seasons_Resort_Hualalai_at_Historic_Ka_upulehu-Kailua_Kona_Island_of_Hawaii_Hawaii.html'
+filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1007318-d1469045-Reviews-Hawaii_Island_Retreat_at_Ahu_Pohaku_Ho_omaluhia-Kapaau_Island_of_Hawaii_Hawaii.html'
 
 hotel_url = filename.split('-')
 
-#url = 'http://www.tripadvisor.com/Hotel_Review-g1017328-d247900-Reviews-or10-Alpine_Village_Suites-Taos_Ski_Valley_Taos_County_New_Mexico.html'
-#hotel_url = @url.split('-')
+url = 'http://www.tripadvisor.com/Hotel_Review-g60872-d111582-Reviews-Four_Seasons_Resort_Hualalai_at_Historic_Ka_upulehu-Kailua_Kona_Island_of_Hawaii_Hawaii.html'
+hotel_url = url.split('-')
 
 body = IO.binread(filename)
 
-doc = Nokogiri::HTML(body)
-#doc = Nokogiri::HTML(open(url))
+#doc = Nokogiri::HTML(body)
+doc = Nokogiri::HTML(open(url))
 
 # Extract reviews
 doc.css('div#REVIEWS>div.reviewSelector').each do |link|
@@ -39,6 +41,7 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
     extracted_info['title'] = nil
     extracted_info['rating'] = nil
     extracted_info['date'] = nil
+    extracted_info['viamobile'] = nil # rated via mobile
     extracted_info['helpful'] = nil
     extracted_info['description'] = nil
     extracted_info['reviewer_name'] = nil
@@ -85,6 +88,11 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
     extracted_info['rating'] = link.css('img.sprite-ratings')[0].values[2] # img alt text
     extracted_info['date'] = link.css('span.ratingDate').text.strip
     extracted_info['date'] = extracted_info['date'].gsub("\n", ' ')
+    extracted_info['date'] = extracted_info['date'].gsub("NEW", '')
+    extracted_info['date'] = extracted_info['date'].strip
+
+    extracted_info['viamobile'] =   link.css('div.reviewItemInline>a.viaMobile').text.strip
+
     extracted_info['helpful'] = link.css('div.hlpNmbr').text.strip
 
     extracted_info['mgrdate'] = field_clean_up link.css('div>div.mgrRspnInline>div.header>div.res_date')
