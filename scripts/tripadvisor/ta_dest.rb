@@ -5,6 +5,9 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 
 require 'anemone'
 
+data_location = "/data/crawl/ta/"
+city_urls_file = location + "hotels_by_city_urls.txt"
+
 #Build the city hotels pages urls
 start_page = 0
 second_page = 20
@@ -27,12 +30,10 @@ while ((page_start_count + incr_per_page) <= 8605)  do
 
 end
 
-fd = File.new("hotels_by_city_urls.txt", "w")
+fd = File.new(city_urls_file, "w")
 city_dest_urls = []
 
-#Anemone.crawl("http://www.tripadvisor.com", :filename => "usa_cities.list" , :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "data_ta_dest", :force_download => false, :threads => 8, :jobid => 1) do |anemone|
-
-Anemone.crawl(country_city_pages, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "data_ta", :force_download => false, :threads => 6, :jobid => 1) do |anemone|
+Anemone.crawl(country_city_pages, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => data_location + "data_ta", :force_download => false, :threads => 8, :jobid => 1) do |anemone|
 
   anemone.on_every_page do |page|
 

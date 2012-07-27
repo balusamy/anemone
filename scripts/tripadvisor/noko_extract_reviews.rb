@@ -8,24 +8,17 @@ def field_clean_up(node)
 end
 
 #Read the file from disk
-#filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1006448-d594942-Reviews-Hillside_Bed_and_Breakfast-Halfway_Oregon.html'
-
-#filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g41948-d93976-Reviews-or10-Courtyard_by_Marriott_Boston_Woburn_Burlington-Woburn_Massachusetts.html'
-
-#filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1017328-d247900-Reviews-or10-Alpine_Village_Suites-Taos_Ski_Valley_Taos_County_New_Mexico.html'
-
 #filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1509268-d212126-Reviews-Comfort_Inn_Near_Vail_Beaver_Creek-Avon_Beaver_Creek_Colorado.html'
 #http://www.tripadvisor.com/Hotel_Review-g1509268-d212126-Reviews-Comfort_Inn_Near_Vail_Beaver_Creek-Avon_Beaver_Creek_Colorado.html
 
 filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g29668-d1930984-Reviews-or10-Augusta_Wine_Country_Inn-Augusta_Missouri.html'
 #http://www.tripadvisor.com/Hotel_Review-g29668-d1930984-Reviews-or10-Augusta_Wine_Country_Inn-Augusta_Missouri.html
-#filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g32904-d1097898-Reviews-Marriott_Pleasanton-Pleasanton_California.html'
-#filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g60872-d111582-Reviews-Four_Seasons_Resort_Hualalai_at_Historic_Ka_upulehu-Kailua_Kona_Island_of_Hawaii_Hawaii.html'
 filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1007318-d1469045-Reviews-Hawaii_Island_Retreat_at_Ahu_Pohaku_Ho_omaluhia-Kapaau_Island_of_Hawaii_Hawaii.html'
 
 hotel_url = filename.split('-')
 
-url = 'http://www.tripadvisor.com/Hotel_Review-g60872-d111582-Reviews-Four_Seasons_Resort_Hualalai_at_Historic_Ka_upulehu-Kailua_Kona_Island_of_Hawaii_Hawaii.html'
+#url = 'http://www.tripadvisor.com/Hotel_Review-g60872-d111582-Reviews-Four_Seasons_Resort_Hualalai_at_Historic_Ka_upulehu-Kailua_Kona_Island_of_Hawaii_Hawaii.html'
+url = 'http://www.tripadvisor.com/Hotel_Review-g32859-d79221-Reviews-The_Langham_Huntington_Pasadena_Los_Angeles-Pasadena_California.html'
 hotel_url = url.split('-')
 
 body = IO.binread(filename)
@@ -45,7 +38,7 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
     extracted_info['helpful'] = nil
     extracted_info['description'] = nil
     extracted_info['reviewer_name'] = nil
-    extracted_info['reviewer_id'] = nil
+    #extracted_info['reviewer_id'] = nil
     extracted_info['reviewer_title'] = nil
     extracted_info['reviewer_location'] = nil
     extracted_info['reviewer_helpful_votes'] = nil
@@ -60,7 +53,12 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
     extracted_info['reviewid'] =  link['id']
 
     # Reviewer information
-    extracted_info['reviewer_name'] = link.css('div.username').text.strip
+    extracted_info['reviewer_name'] = link.css('div.username').text.strip.gsub("\n", ' ')
+    # Reviewer name is written as "john \n Posted by a Hotel Traveler".  In this case, we will strip the Posted by a Hotel Traveler.
+    if (!extracted_info['reviewer_name'].nil? && extracted_info['reviewer_name'].match("Posted") && !(extracted_info['reviewer_name'] =~ /^Posted/))
+        extracted_info['reviewer_name'] = extracted_info['reviewer_name'].split('Posted')[0].strip
+    end
+
     cl = link.css('div.username>span')
     if (cl[0] && !cl[0]['class'].nil?)
         cl[0]['class'].split(" ").each do |n|
@@ -70,10 +68,12 @@ doc.css('div#REVIEWS>div.reviewSelector').each do |link|
         end
     end
 
-    if ((!link.css('div.memberOverlayLink').nil?) && !(link.css('div.memberOverlayLink')[0]).nil?)
-        #puts link.css('div.memberOverlayLink')[0]
-        extracted_info['reviewer_id'] = link.css('div.memberOverlayLink')[1]
-    end
+    #This is not necessary.  reviewer_profile_id has this info
+    #if ((!link.css('div.memberOverlayLink').nil?) && !(link.css('div.memberOverlayLink')[0]).nil?)
+    #    #puts link.css('div.memberOverlayLink')[0]
+    #    extracted_info['reviewer_id'] = link.css('div.memberOverlayLink')[1]
+    #end
+
     extracted_info['reviewer_location'] = link.css('div.location').text.strip
     extracted_info['reviewer_title'] = link.css('div.totalReviewBadge>div.reviewerTitle').text.strip
     extracted_info['reviewer_num_reviews'] = link.css('div.totalReviewBadge>span.badgeText').text.strip

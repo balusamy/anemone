@@ -32,8 +32,6 @@ hotels_urls.each do |url|
     filename = html_location + "/" + url.gsub("http://", '')
 
     #Read the file from disk
-    #filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g1006448-d594942-Reviews-Hillside_Bed_and_Breakfast-Halfway_Oregon.html'
-
     #filename = '/data/crawl/ta/data_ta_hotel_and_reviews/www.tripadvisor.com/Hotel_Review-g41948-d93976-Reviews-or10-Courtyard_by_Marriott_Boston_Woburn_Burlington-Woburn_Massachusetts.html'
     #hotel_url = filename.split('-')
 
@@ -58,7 +56,7 @@ hotels_urls.each do |url|
         extracted_info['helpful'] = nil
         extracted_info['description'] = nil
         extracted_info['reviewer_name'] = nil
-        extracted_info['reviewer_id'] = nil
+        #extracted_info['reviewer_id'] = nil
         extracted_info['reviewer_title'] = nil
         extracted_info['reviewer_location'] = nil
         extracted_info['reviewer_helpful_votes'] = nil
@@ -73,7 +71,12 @@ hotels_urls.each do |url|
         extracted_info['reviewid'] =  link['id']
 
         # Reviewer information
-        extracted_info['reviewer_name'] = link.css('div.username').text.strip
+        extracted_info['reviewer_name'] = link.css('div.username').text.strip.gsub("\n", ' ')
+        # Reviewer name is written as "john \n Posted by a Hotel Traveler".  In this case, we will strip the Posted by a Hotel Traveler.
+        if (!extracted_info['reviewer_name'].nil? && extracted_info['reviewer_name'].match("Posted") && !(extracted_info['reviewer_name'] =~ /^Posted/))
+            extracted_info['reviewer_name'] = extracted_info['reviewer_name'].split('Posted')[0].strip
+        end
+
         cl = link.css('div.username>span')
         if (cl[0] &&(!cl[0]['class'].nil?))
             cl[0]['class'].split(" ").each do |n|
@@ -83,10 +86,11 @@ hotels_urls.each do |url|
             end
         end
 
-        if ((!link.css('div.memberOverlayLink').nil?) && !(link.css('div.memberOverlayLink')[0]).nil?)
-            #puts link.css('div.memberOverlayLink')[0]
-            extracted_info['reviewer_id'] = link.css('div.memberOverlayLink')[0].values[0]
-        end
+        #This is not necessary.  reviewer_profile_id has this info
+        #if ((!link.css('div.memberOverlayLink').nil?) && !(link.css('div.memberOverlayLink')[0]).nil?)
+        #    #puts link.css('div.memberOverlayLink')[0]
+        #    extracted_info['reviewer_id'] = link.css('div.memberOverlayLink')[0].values[0]
+        #end
 
         extracted_info['reviewer_location'] = link.css('div.location').text.strip
         extracted_info['reviewer_title'] = link.css('div.totalReviewBadge>div.reviewerTitle').text.strip

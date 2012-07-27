@@ -5,13 +5,17 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 
 require 'anemone'
 
-hotels_by_city = IO.binread("hotels_by_city_urls.txt")
+data_location = "/data/crawl/ta/"
+city_urls_file = location + "hotels_by_city_urls.txt"
+outfile = location + "all_hotels_in_a_city.txt"
+
+hotels_by_city = IO.binread(city_urls_file)
 
 city_urls = hotels_by_city.split(/\n/)
 
-fd_h = File.new("all_hotels_in_a_city.txt", "w")
+fd_h = File.new(outfile, "w")
 
-Anemone.crawl(city_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "data_ta", :force_download => false, :threads => 8, :jobid => 1) do |anemone|
+Anemone.crawl(city_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => data_location + "data_ta", :force_download => false, :threads => 8, :jobid => 1) do |anemone|
 
   anemone.on_every_page do |page|
     total = 0;
