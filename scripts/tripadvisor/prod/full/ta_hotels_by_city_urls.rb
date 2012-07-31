@@ -9,7 +9,7 @@ data_location = "/data/crawl/ta/"
 city_urls_file = data_location + "hotels_by_city_urls.txt"
 outfile = data_location + "all_hotels_in_a_city.txt"
 
-hotels_by_city = IO.binread(city_urls_file)
+hotels_by_city = IO.read(city_urls_file)
 
 city_urls = hotels_by_city.split(/\n/)
 

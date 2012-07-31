@@ -7,7 +7,7 @@ file = ARGV[0]
 
 file = "./hotels/xaa_hotels_reviews_page_urls.txt" if file.nil?
 
-hotels = IO.binread(file)
+hotels = IO.read(file)
 
 feed_location = "/data/crawl/ta/hotel_feed/"
 outfile = feed_location + "hotel_feed.txt"
@@ -26,7 +26,7 @@ hotels_urls.each do |url|
     #hotel_url = filename.split('-')
 
     begin
-        body = IO.binread(filename)
+        body = IO.read(filename)
     rescue
         puts "file not found #{filename}"
     end

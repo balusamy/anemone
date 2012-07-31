@@ -16,7 +16,7 @@ file = "./hotels/xaa_hotels_reviews_page_urls.txt" if file.nil?
 #prefix = file.split("/")[2].split("_")[0]
 prefix = File.basename(file).split("-")[0]
 
-hotels = IO.binread(file)
+hotels = IO.read(file)
 
 feed_location = "/data/crawl/ta/reviews_feed/"
 
@@ -40,7 +40,7 @@ hotels_urls.each do |url|
         next
     end
 
-    body = IO.binread(filename)
+    body = IO.read(filename)
     doc = Nokogiri::HTML(body)
 
     # Extract reviews

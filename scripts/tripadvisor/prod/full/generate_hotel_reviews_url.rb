@@ -9,7 +9,7 @@ file = ARGV[0]
 
 file = "./hotels/xaa" if file.nil?
 
-hotels = IO.binread(file)
+hotels = IO.read(file)
 
 hotels_urls = hotels.split("\n")
 
