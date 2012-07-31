@@ -2,11 +2,14 @@ require 'uri'
 
 #u = URI ("http://www.tripadvisor.com/Hotels-g191-United_States-Hotels.html");
 
-list = IO.binread("usa_cities.list")
+# IO.readlines returns file content in an array
+alist = IO.readlines("usa_cities.list")
 
-alist = list.split "\n"
+# IO.read returns file content as a single string
+#list = IO.read("usa_cities.list")
+#alist = list.split "\n"
 
-#puts alist[2]
+puts alist[2]
 
 u = URI(alist[2])
 

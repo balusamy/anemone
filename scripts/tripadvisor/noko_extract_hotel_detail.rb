@@ -9,7 +9,7 @@ hotel_url = filename.split('-')
 
 #hotel_url = @url.split('-')
 
-body = IO.binread(filename)
+body = IO.read(filename)
 
 doc = Nokogiri::HTML(body)
 

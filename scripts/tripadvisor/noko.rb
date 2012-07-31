@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'active_record'
 
 
 #u = 'http://www.tripadvisor.com/Hotel_Review-g32124-d224514-Reviews-Hilton_Garden_Inn_San_Francisco_Airport_Burlingame-Burlingame_California.html'

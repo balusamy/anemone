@@ -6,7 +6,7 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 require 'anemone'
 
 #hotels = IO.binread("./hotels/xaa")
-hotels = IO.binread(ARGV[0])
+hotels = IO.read(ARGV[0])
 
 hotels_urls = hotels.split("\n")
 

@@ -21,7 +21,7 @@ hotel_url = filename.split('-')
 url = 'http://www.tripadvisor.com/Hotel_Review-g32859-d79221-Reviews-The_Langham_Huntington_Pasadena_Los_Angeles-Pasadena_California.html'
 hotel_url = url.split('-')
 
-body = IO.binread(filename)
+body = IO.read(filename)
 
 #doc = Nokogiri::HTML(body)
 doc = Nokogiri::HTML(open(url))
