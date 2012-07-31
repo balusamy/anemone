@@ -27,7 +27,7 @@ CREATE TABLE hotels (
    KEY (region)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000001;
 
-CREATE TABLE hotelreview (
+CREATE TABLE hotelreviews (
   id int(11) NOT NULL AUTO_INCREMENT,
   hotelid int(11) NOT NULL,
   srcreviewid int(11) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE hotelreview (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=10000001;
 
 
-CREATE TABLE source (
+CREATE TABLE sources (
   id smallint(6) NOT NULL AUTO_INCREMENT,
   sourcename varchar(256) NOT NULL,
   url varchar(1500) NOT NULL,

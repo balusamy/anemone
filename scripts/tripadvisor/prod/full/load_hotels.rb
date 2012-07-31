@@ -11,12 +11,14 @@ ActiveRecord::Base.establish_connection(
 )  
   
 class Hotel < ActiveRecord::Base  
+    self.table_name = 'hotels'
 end  
 
 class Hotelreview < ActiveRecord::Base  
+    self.table_name = 'hotelreviews'
 end  
 
-Hotel.create(:sourceid => 'bob', :name => 'test123')
+Hotel.create!(:sourceid => 'bob', :name => 'test123', :srchotelid => 'd123456', :url => 'http://www.tripadvisor.com')
 
 
 
