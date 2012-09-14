@@ -5,9 +5,17 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 
 require 'anemone'
 
-data_location = "/data/crawl/ta/"
-city_urls_file = data_location + "hotels_by_city_urls.txt"
-outfile = data_location + "all_hotels_in_a_city.txt"
+#data_location = "/data/crawl/ta/"
+#city_urls_file = data_location + "hotels_by_city_urls.txt"
+#outfile = data_location + "all_hotels_in_a_city.txt"
+
+#
+# Generate all the pagination urls in the hotels list page in each city
+#
+
+crawled_dir = ARGV[0] # crawled directory
+city_urls_file = ARGV[1] # input file. page one of hotels list per city
+outfile = ARGV[2] # Generate all pages of hotels list per city
 
 hotels_by_city = IO.read(city_urls_file)
 
@@ -15,7 +23,7 @@ city_urls = hotels_by_city.split(/\n/)
 
 fd_h = File.new(outfile, "w")
 
-Anemone.crawl(city_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => data_location + "data_ta", :force_download => false, :threads => 8, :jobid => 1) do |anemone|
+Anemone.crawl(city_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => crawled_dir, :force_download => false, :threads => 8, :jobid => 1) do |anemone|
 
   anemone.on_every_page do |page|
     total = 0;

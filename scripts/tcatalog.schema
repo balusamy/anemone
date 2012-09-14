@@ -1,6 +1,6 @@
-drop DATABASE tcatalog;
-CREATE DATABASE tcatalog;
-use tcatalog;
+drop DATABASE productiondb;
+CREATE DATABASE productiondb;
+use productiondb;
 
 CREATE TABLE hotels (
   id int(11) NOT NULL AUTO_INCREMENT,

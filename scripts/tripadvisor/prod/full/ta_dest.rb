@@ -5,8 +5,16 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 
 require 'anemone'
 
-data_location = "/data/crawl/ta/"
-city_urls_file = data_location + "hotels_by_city_urls.txt"
+#
+# From country pages, generate city landing pages
+#
+
+#data_location = "/data/crawl/ta/"
+#city_urls_file = data_location + "hotels_by_city_urls.txt"
+
+crawled_dir = ARGV[0] # crawled directory
+city_urls_file = ARGV[1] # output file.  Generate destination landing pages urls
+
 
 #Build the city hotels pages urls
 start_page = 0
@@ -33,28 +41,14 @@ end
 fd = File.new(city_urls_file, "w")
 city_dest_urls = []
 
-Anemone.crawl(country_city_pages, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => data_location + "data_ta", :force_download => false, :threads => 8, :jobid => 1) do |anemone|
+Anemone.crawl(country_city_pages, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => crawled_dir, :force_download => false, :threads => 8, :jobid => 1) do |anemone|
 
   anemone.on_every_page do |page|
 
-    # parse the first page
-    if !(page.url.to_s =~ /-oa/) 
-      page.doc.css('div.rolluptopdestlink').each do |link|
-        details = link.xpath('.//a')[0].attributes()
-        u = domain + details['href'].value()
-        city_dest_urls << u
-      end
-    else
-      # parse the other pages
-      # only incude city dest urls
-      page.doc.css('ul.geoList>li').each do |link|
-        #puts link.content
-
-        details = link.xpath('.//a')[0].attributes()
-
-        u = domain + details['href'].value()
-        city_dest_urls << u
-      end
+    page.doc.css('div.rolluptopdestlink').each do |link|
+      details = link.xpath('.//a')[0].attributes()
+      u = domain + details['href'].value()
+      city_dest_urls << u
     end
 
     page.discard_doc! true

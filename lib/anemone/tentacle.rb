@@ -14,7 +14,8 @@ module Anemone
       @opts = opts
 
       # Create mysql connection per thread
-      @con = Mysql.new('localhost', 'root', 'purp1eb0y', 'crawl')
+      #@con = Mysql.new('localhost', 'root', 'purp1eb0y', 'crawl')
+      @con = Mysql.new('localhost', 'root', 'dv0271', 'crawl')
 
     end
 

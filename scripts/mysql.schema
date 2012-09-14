@@ -16,6 +16,8 @@ CREATE TABLE page (
   redirect varchar(1500),
   time int(11),
   header varchar(5000),
+  first_crawled datetime,
+  last_crawled datetime,
    PRIMARY KEY (id),
    UNIQUE KEY (urlid)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;

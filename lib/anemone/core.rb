@@ -93,7 +93,7 @@ module Anemone
       @valid_domains = @urls.map{|u| [u.host,u.host.gsub(/^www\./,'.')]}.flatten.compact.uniq
 
       if (opts[:filename]) 
-        list = IO.binread(opts[:filename])
+        list = IO.read(opts[:filename])
         alist = list.split "\n"
         
           # override urls collected based on :urls command line option but @valid_domains will contain all the domains allowed to crawl

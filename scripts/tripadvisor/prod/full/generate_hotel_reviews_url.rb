@@ -6,6 +6,8 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 require 'anemone'
 
 file = ARGV[0]
+outfile = ARGV[1]
+write_loc = ARGV[2]
 
 file = "./hotels/xaa" if file.nil?
 
@@ -13,11 +15,11 @@ hotels = IO.read(file)
 
 hotels_urls = hotels.split("\n")
 
-outfile = "#{file}_hotels_reviews_page_urls.txt"
+#outfile = "#{file}_hotels_reviews_page_urls.txt"
 
 fd_h = File.new(outfile, "w")
 
-Anemone.crawl(hotels_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => "/data/crawl/ta/data_ta", :force_download => false, :threads => 4, :jobid => 1) do |anemone|
+Anemone.crawl(hotels_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains => false, :write_location => write_loc, :force_download => false, :threads => 8, :jobid => 1) do |anemone|
 
   anemone.on_every_page do |page|
 

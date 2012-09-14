@@ -53,5 +53,13 @@ Successfully installed mysql2-0.3.11
 1 gem installed
 
 
+=====================================================================
+
+Install perl modules
+sudo apt-get install libconfig-yaml-perl liblist-moreutils-perl
+
+
+
+
 
 

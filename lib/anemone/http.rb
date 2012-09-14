@@ -3,6 +3,7 @@ require 'anemone/page'
 require 'anemone/cookie_store'
 #require "base64"
 require 'digest/md5'
+require 'json'
 #require 'digest/sha1'
 #require 'digest/sha2'
 
@@ -36,13 +37,15 @@ module Anemone
       begin
         url = URI(url) unless url.is_a?(URI)
         pages = []
-        #get(url, referer) do |response, code, location, redirect_to, response_time|
-        get(url, referer, dbcon) do |body, code, location, redirect_to, response_time, headers_hash, disk_cache, content_type, filename|
+        get(url, referer, dbcon) do |body, code, location, redirect_to, response_time, headers_hash, disk_cache, content_type, filename, url_id|
 
           if (!disk_cache) 
 
             url_string = location.to_s
-            url_id = Digest::MD5.new << url_string
+            #url_id = Digest::MD5.new << url_string
+            #url_id = url_id.to_s
+
+            #hashdirname = "/#{url_id[0..1]}/#{url_id[2..3]}/#{url_id[4..5]}/"
 
             depth = 1 if (!depth)
             referer = "" if (!referer)
@@ -50,12 +53,14 @@ module Anemone
             jobid = @opts[:jobid] 
 
             if (code == 200) 
-              err = write_to_disk location, body if (code == 200) 
+              #err = write_to_disk location, body if (code == 200) 
+              err = write_to_disk location, filename, body if (code == 200) 
             else
               err = "FILE NOT WRITTEN"
             end
 
-            headers_hash_string = Mysql.escape_string(headers_hash.to_s)
+            #headers_hash_string = Mysql.escape_string(headers_hash.to_s)
+            headers_hash_string = Mysql.escape_string(headers_hash.to_json)
 
             #puts "inserting .. #{url} and id is #{url_id} and code is #{code}"
 
@@ -64,9 +69,9 @@ module Anemone
             rs.free
 
             if (num_results == 0)
-              rs = dbcon.query("insert into page(urlid,jobid,url,filename,error,type,code,depth,referer,redirect,time, header) values ('#{url_id}',#{jobid},'#{url_string}','#{filename}','#{err}','#{content_type}',#{code},#{depth},'#{referer}','#{redirect_to}',#{response_time},'#{headers_hash_string}')")
+              rs = dbcon.query("insert into page(urlid,jobid,url,filename,error,type,code,depth,referer,redirect,time, header,first_crawled, last_crawled) values ('#{url_id}',#{jobid},'#{url_string}','#{filename}','#{err}','#{content_type}',#{code},#{depth},'#{referer}','#{redirect_to}',#{response_time},'#{headers_hash_string}', NOW(), NOW())")
             else
-              rs = dbcon.query("update page set jobid=#{jobid},url='#{url_string}',filename='#{filename}',error='#{err}',type='#{content_type}',code=#{code},depth=#{depth},referer='#{referer}',redirect='#{redirect_to}',time=#{response_time},header='#{headers_hash_string}' where urlid='#{url_id}'")
+              rs = dbcon.query("update page set jobid=#{jobid},url='#{url_string}',filename='#{filename}',error='#{err}',type='#{content_type}',code=#{code},depth=#{depth},referer='#{referer}',redirect='#{redirect_to}',time=#{response_time},header='#{headers_hash_string}', last_crawled=NOW() where urlid='#{url_id}'")
             end
 
             rs.free if !rs.nil?
@@ -144,7 +149,7 @@ module Anemone
 
     private
 
-    def get_filename_dup(host, uri, create_folder = false)
+    def get_filename(host, uri, hashname, create_folder = false)
       folder = host
       filename = uri
 
@@ -153,32 +158,7 @@ module Anemone
       filename = folders.pop
 
       folder_name = File.join(".",folder,folders)
-      full_folder_name = @opts[:write_location] + "/" + folder_name if (@opts[:write_location])
-
-      if create_folder && (!File.exists? full_folder_name)
-          FileUtils.mkdir_p(full_folder_name) # Create the current subfolder
-      end
-
-      #print "Downloading '#{page.url}'..."
-      full_filename = File.join(".",full_folder_name,filename)
-
-      if File.directory? full_filename
-          full_filename = full_filename + ".1"
-      end
-
-      return full_filename
-    end
-
-    def get_filename(host, uri, create_folder = false)
-      folder = host
-      filename = uri
-
-      filename = filename + "index.html" if filename.end_with?("/") # Make sure the file name is valid
-      folders = filename.split("/")
-      filename = folders.pop
-
-      folder_name = File.join(".",folder,folders)
-      full_folder_name = @opts[:write_location] + "/" + folder_name if (@opts[:write_location])
+      full_folder_name = @opts[:write_location] + hashname + folder_name if (@opts[:write_location])
 
       if create_folder && (!File.exists? full_folder_name)
           FileUtils.mkdir_p(full_folder_name) # Create the current subfolder
@@ -194,25 +174,21 @@ module Anemone
       return full_filename
     end
 
-    def write_to_disk(url, body)
-      full_filename = get_filename url.host, url.request_uri.to_s, true
+    def write_to_disk(url, full_filename, body)
       err = nil
+
+      # Create the director if it doesnt exists
+      dir_name = File.dirname full_filename
+      if (!File.directory? dir_name)
+          FileUtils.mkdir_p(dir_name) 
+      end
 
       if ((File.exists? full_filename) && !@opts[:force_download])
         err = "File exists"
       else
         start = Time.now()
-        #File.open(full_filename,"w") do |f|
-        #  begin
-        #    f.write(body)
-        #  rescue Exception => e
-        #    puts "An error has occured while processing #{page.url}:"
-        #    err = "An error has occured while processing #{page.url}:"
-        #    puts e.message
-        #  end
-        #  f.close
-        #end
-        IO.binwrite(full_filename, body)
+        File.open(full_filename, "w") do |file| file.write(body) end
+
         finish = Time.now()
         file_write_time = ((finish - start) * 1000).round
         puts "file write time #{file_write_time} - #{url}"
@@ -227,6 +203,14 @@ module Anemone
 
     end
 
+    def hashdirname(url)
+      urlid = Digest::MD5.new << url.to_s
+      urlid = urlid.to_s
+      hashname = "/#{urlid[0..1]}/#{urlid[2..3]}/#{urlid[4..5]}/"
+      yield urlid, hashname
+      return 
+    end
+
     #
     # Retrieve HTTP responses for *url*, including redirects.
     # Yields the response object, response code, and URI location
@@ -236,7 +220,15 @@ module Anemone
   
       #puts "before force_download #{@opts[:force_download]}"
       body = ''
-      full_filename = get_filename url.host, url.request_uri.to_s    
+
+      hashname = ''
+      url_id = ''
+      hashdirname url do |uid, hname|
+        url_id = uid
+        hashname = hname
+      end
+
+      full_filename = get_filename url.host, url.request_uri.to_s, hashname
 
       if ((File.exists? full_filename) && (!@opts[:force_download]))
         # if it is on the disk, read the content and construct response
@@ -244,8 +236,8 @@ module Anemone
 
         response_hash = Hash.new
 
-        url_string = url.to_s
-        url_id = Digest::MD5.new << url_string
+        #url_string = url.to_s
+        #url_id = Digest::MD5.new << url_string
        
         rs = dbcon.query("select * from page where urlid = '#{url_id}'")
 
@@ -259,27 +251,21 @@ module Anemone
           response_hash['header'] = row[12]
         end
 
-        #if (((response_hash['depth'] < @opts[:depth_limit])||(response_hash['depth'] == 1)) && (response_hash['code'] == 200) && (File.exists? full_filename))
         if (response_hash['code'] == 200) 
           start = Time.now()
-          #File.open(full_filename,"r") do |f|
-          #  f.each do |line|
-          #      body += line
-          #  end
-          #  f.close
-          #end
 
-          body = IO.binread(full_filename)
+          body = IO.read(full_filename)
 
           finish = Time.now()
           file_read_time = ((finish - start) * 1000).round
 
           #puts "file read time #{file_read_time} - #{url}"
 
-          headers_hash = eval response_hash['header']
+          #headers_hash = eval response_hash['header']
+          headers_hash = JSON.parse(response_hash['header'])
           #headers_hash = response_hash['header']
 
-          yield body, response_hash['code'], url, response_hash['redirect_to'], response_hash['response_time'], headers_hash, true, headers_hash['content-type'], full_filename
+          yield body, response_hash['code'], url, response_hash['redirect_to'], response_hash['response_time'], headers_hash, true, headers_hash['content-type'], full_filename, url_id
         end # if ((response_hash['depth']...
 
       else
@@ -295,7 +281,7 @@ module Anemone
             redirect_to = response.is_a?(Net::HTTPRedirection) ? URI(response['location']).normalize : nil
             #puts "URL: #{url}, code: #{code} , redirect:  #{redirect_to}"
             headers = response.to_hash
-            yield response.body, code, loc, redirect_to, response_time, headers, false, headers['content-type'], full_filename
+            yield response.body, code, loc, redirect_to, response_time, headers, false, headers['content-type'], full_filename, url_id
             limit -= 1
           end while (loc = redirect_to) && allowed?(redirect_to, url) && limit > 0
       end

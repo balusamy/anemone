@@ -1,10 +1,14 @@
+#!/usr/bin/perl
 
-$data_location = "/data/crawl/ta";
+use utils;
 
-$f = "$data_location/hotels/hotels_page_uniq.txt";
-($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
-print "processing started $f at $day $hour:$min:$sec\n";
-system("ruby extract_hotel_detail.rb $f");
-($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
-print "processing completed $f at $day $hour:$min:$sec\n";
+$crawled_dir = $cfg->{data}{crawled_dir};
+$f = $cfg->{data}{hotels_page_urls_uniq};
+
+print_start_msg();
+
+run_program("ruby extract_hotel_detail.rb $f");
+
+print_end_msg();
+
 
