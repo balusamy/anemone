@@ -1,0 +1,27 @@
+
+data:
+  sitename: Trip Advisor
+  datadir: /data/projectz/
+  sitedata_dir: /data/projectz/trip
+  crawled_dir: /data/projectz/trip/crawl
+  hotels_dir: /data/projectz/trip/hotels
+  feed_dir: /data/projectz/trip/hotels/feeds
+  city_urls_hotels_list_page_one: city_urls_hotels_list_page_one.txt
+  city_urls_all_hotels_pages: city_urls_all_hotels_pages.txt
+  hotels_page_urls: hotels_page_urls.txt
+  hotels_page_urls_uniq: hotels_page_urls_uniq.txt
+  hotels_reviews_urls: hotels_reviews_urls.txt
+
+jobconfig:
+  numprocesses: 8
+  numfiles: 8
+  filesize: 10000
+
+production:
+  adapter: mysql2
+  encoding: UTF-8
+  username: root
+  password: purp1eb0y
+  host: localhost
+  database: productiondb
+
