@@ -10,9 +10,7 @@ $outfile = $location . "/" . $cfg->{data}{hotels_page_urls};
 
 print_start_msg();
 
-foreach $f (@files) {
-    run_program ("ruby city_hotels_listing_page.rb $infile $outfile $write_loc");
-}
+run_program ("ruby city_hotels_listing_page.rb $infile $outfile $write_loc");
 
 print_end_msg();
 

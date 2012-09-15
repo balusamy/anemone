@@ -10,9 +10,7 @@ $write_loc = $cfg->{data}{crawled_dir};
 
 print_start_msg();
 
-foreach $f (@files) {
-    run_program("ruby ta_hotels_by_city_urls.rb $write_loc $city_urls_file $outfile");
-}
+run_program("ruby ta_hotels_by_city_urls.rb $write_loc $city_urls_file $outfile");
 
 print_end_msg();
 

@@ -5,14 +5,9 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 
 require 'anemone'
 
-#data_location = "/data/crawl/ta/"
-#city_urls_file = data_location + "hotels_by_city_urls.txt"
-#outfile = data_location + "all_hotels_in_a_city.txt"
-
 #
 # Generate all the pagination urls in the hotels list page in each city
 #
-
 crawled_dir = ARGV[0] # crawled directory
 city_urls_file = ARGV[1] # input file. page one of hotels list per city
 outfile = ARGV[2] # Generate all pages of hotels list per city
@@ -33,24 +28,20 @@ Anemone.crawl(city_urls, :depth_limit => 0, :verbose => true, :crawl_subdomains 
       end
     end
 
-    #sectitle =  page.doc.xpath("//h2[@id='RSLTHDR']").text
-    # ignore non hotels like B&B etc
-    #if !sectitle.index("B&B") 
-      fd_h.puts page.url # write the first page.
+    fd_h.puts page.url # write the first page.
 
-      if (total > 30) 
-        # write other pagination urls
-        incr_per_page = 30
-        link = page.url.to_s
-        url_split = link.split(/-/)
+    if (total > 30) 
+      # write other pagination urls
+      incr_per_page = 30
+      link = page.url.to_s
+      url_split = link.split(/-/)
 
-        page_start_count = 0
-        while ((page_start_count + incr_per_page) < total)  do
-          page_start_count += incr_per_page
-          fd_h.puts "#{url_split[0]}-#{url_split[1]}-" + "oa" + page_start_count.to_s + "-#{url_split[2]}-#{url_split[3]}\n"
-        end
+      page_start_count = 0
+      while ((page_start_count + incr_per_page) < total)  do
+        page_start_count += incr_per_page
+        fd_h.puts "#{url_split[0]}-#{url_split[1]}-" + "oa" + page_start_count.to_s + "-#{url_split[2]}-#{url_split[3]}\n"
       end
-    #end
+    end
 
     page.discard_doc! true
   end
