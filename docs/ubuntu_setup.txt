@@ -1,0 +1,13 @@
+
+
+For chroot:
+https://help.ubuntu.com/community/BasicChroot
+https://help.ubuntu.com/community/DebootstrapChroot
+
+Command to chroot:  
+sudo debootstrap --variant=buildd --arch i386 precise /var/chroot/ http://mirror.pnl.gov/ubuntu/
+sudo mount -o bind /proc /var/chroot/proc
+sudo cp /etc/resolv.conf /var/chroot/etc/resolv.conf
+sudo chroot /var/chroot
+
+
