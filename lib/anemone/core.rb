@@ -76,6 +76,8 @@ module Anemone
       :jobid => 0,
     }
 
+    @link_queue = nil
+
     # Create setter methods for all options to be called from the crawl block
     DEFAULT_OPTS.keys.each do |key|
       define_method "#{key}=" do |value|
@@ -176,6 +178,11 @@ module Anemone
       self
     end
 
+    # Add addtional links to link_queue
+    def add_to_link_queue(newlinks)
+      newlinks.each{ |url| @link_queue << [url, nil, 1] } if !newlinks.nil?
+    end
+
     #
     # Perform the crawl
     #
@@ -185,18 +192,18 @@ module Anemone
       @urls.delete_if { |url| !visit_link?(url) }
       return if @urls.empty?
 
-      link_queue = Queue.new
+      @link_queue = Queue.new
       #page_queue = Queue.new
       page_queue = SizedQueue.new(@opts[:max_page_queue_size])
 
       @opts[:threads].times do
-        @tentacles << Thread.new { Tentacle.new(link_queue, page_queue, @opts).run }
+        @tentacles << Thread.new { Tentacle.new(@link_queue, page_queue, @opts).run }
       end
 
-      #@urls.each{ |url| link_queue.enq(url) }
-      @urls.each{ |url| link_queue << [url, nil, 1] }
+      #@urls.each{ |url| @link_queue.enq(url) }
+      @urls.each{ |url| @link_queue << [url, nil, 1] }
 
-      queue_count = 0
+      #queue_count = 0
 
       loop do
         page = page_queue.deq
@@ -204,45 +211,46 @@ module Anemone
 
         #if @opts[:verbose]
           #if queue_count == 50 
-            puts "#{page.url} Queue: #{link_queue.size}" if @opts[:verbose]
-          #  puts "#{page.url} Queue: #{link_queue.size}" 
+            puts "#{page.url} Queue: #{@link_queue.size}" if @opts[:verbose]
+          #  puts "#{page.url} Queue: #{@link_queue.size}" 
           #  queue_count = 0
           #else
           #  queue_count = queue_count + 1 
           #end
         #end
 
-if (!page.doc) 
-  puts "durai page.doc is nil"
-end
+        if (!page.doc) 
+          puts "core.rb: page.doc is nil"
+        end
+
         do_page_blocks page
         page.discard_doc! true if @opts[:discard_page_bodies]
 
         links = links_to_follow page
         links.each do |link|
-          link_queue << [link, page.url.dup, page.depth + 1]
+          @link_queue << [link, page.url.dup, page.depth + 1]
         end
         @pages.touch_keys links
 
         @pages[page.url] = page
 
-        # if link_queue grows faster than threads can consume them
+        # if @link_queue grows faster than threads can consume them
         # pass until threads consumed enough links.
         # Fixes OutOfMemory error when crawling large sites
         # TEMPORARY FIX. (Is there a better solution?)
-        #until link_queue.length < @opts[:link_queue_max_limit]
+        #until @link_queue.length < @opts[:@link_queue_max_limit]
         #  Thread.pass
         #  sleep 1.0
         #end
     
 
         # if we are done with the crawl, tell the threads to end
-        if link_queue.empty? and page_queue.empty?
-          until link_queue.num_waiting == @tentacles.size
+        if @link_queue.empty? and page_queue.empty?
+          until @link_queue.num_waiting == @tentacles.size
             Thread.pass
           end
           if page_queue.empty?
-            @tentacles.size.times { link_queue << :END }
+            @tentacles.size.times { @link_queue << :END }
             break
           end
         end

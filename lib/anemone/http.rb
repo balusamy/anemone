@@ -7,6 +7,9 @@ require 'json'
 #require 'digest/sha1'
 #require 'digest/sha2'
 
+require 'tidy'
+Tidy.path = '/usr/lib/libtidy-0.99.so.0.0.0'
+
 module Anemone
   class HTTP
     # Maximum number of redirects to follow on each get_response
@@ -29,6 +32,23 @@ module Anemone
       fetch_pages(url, referer, depth, dbcon).last
     end
 
+    def tidy_html(body)
+      nice_html = ""
+      Tidy.open(:show_warnings=>true) do |tidy|
+        tidy.options.output_xhtml = true
+        tidy.options.wrap = 0
+        tidy.options.indent = 'auto'
+        tidy.options.indent_attributes = false
+        tidy.options.indent_spaces = 4
+        tidy.options.vertical_space = false
+        tidy.options.char_encoding = 'utf8'
+        nice_html = tidy.clean(body)
+      end
+      # remove excess newlines
+      #nice_html = nice_html.strip.gsub(/\n+/, "\n")
+      nice_html.strip.gsub(/\n+/, "\n")
+    end
+
     #
     # Create new Pages from the response of an HTTP request to *url*,
     # including redirects
@@ -38,6 +58,8 @@ module Anemone
         url = URI(url) unless url.is_a?(URI)
         pages = []
         get(url, referer, dbcon) do |body, code, location, redirect_to, response_time, headers_hash, disk_cache, content_type, filename, url_id|
+
+          tidy_body = tidy_html(body)
 
           if (!disk_cache) 
 
@@ -76,7 +98,7 @@ module Anemone
 
             rs.free if !rs.nil?
 
-            pages << Page.new(location, :body => body,
+            pages << Page.new(location, :body => tidy_body,
                                       :code => code,
                                       :headers => headers_hash,
                                       :referer => referer,
@@ -84,7 +106,7 @@ module Anemone
                                       :redirect_to => redirect_to,
                                       :response_time => response_time)
           else
-            pages << Page.new(location, :body => body,
+            pages << Page.new(location, :body => tidy_body,
                                       :code => code,
                                       :headers => headers_hash,
                                       :referer => referer,

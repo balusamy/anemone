@@ -65,28 +65,36 @@ module Anemone
       doc.search("//a[@href]").each do |a|
         u = a['href']
         next if u.nil? or u.empty?
-        abs = to_absolute(URI(URI.escape(u))) rescue next
+        #abs = to_absolute(URI(URI.escape(u))) rescue next
+        # fix issue with url encoding anchors (chriskite - May 30, 2012 - 28b8a6a7a3327723868ac4269cf497a3c3538956)
+        abs = to_absolute(u) rescue next
         #@links << abs if in_domain?(abs)
         @links << abs 
       end
       doc.search("//img[@src]").each do |a|
         u = a['src']
         next if u.nil? or u.empty?
-        abs = to_absolute(URI(URI.escape(u))) rescue next
+        #abs = to_absolute(URI(URI.escape(u))) rescue next
+        # fix issue with url encoding anchors (chriskite - May 30, 2012 - 28b8a6a7a3327723868ac4269cf497a3c3538956)
+        abs = to_absolute(u) rescue next
         #@links << abs if in_domain?(abs)
         @links << abs 
       end
       doc.search("//link[@href]").each do |a|
         u = a['href']
         next if u.nil? or u.empty?
-        abs = to_absolute(URI(URI.escape(u))) rescue next
+        #abs = to_absolute(URI(URI.escape(u))) rescue next
+        # fix issue with url encoding anchors (chriskite - May 30, 2012 - 28b8a6a7a3327723868ac4269cf497a3c3538956)
+        abs = to_absolute(u) rescue next
         #@links << abs if in_domain?(abs)
         @links << abs 
       end
       doc.search("//script[@src]").each do |a|
         u = a['src']
         next if u.nil? or u.empty?
-        abs = to_absolute(URI(URI.escape(u))) rescue next
+        #abs = to_absolute(URI(URI.escape(u))) rescue next
+        # fix issue with url encoding anchors (chriskite - May 30, 2012 - 28b8a6a7a3327723868ac4269cf497a3c3538956)
+        abs = to_absolute(u) rescue next
         #@links << abs if in_domain?(abs)
         @links << abs 
       end

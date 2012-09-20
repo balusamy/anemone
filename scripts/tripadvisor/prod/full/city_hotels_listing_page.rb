@@ -5,12 +5,6 @@ $LOAD_PATH << '/home/durai/github/anemone/lib'
 
 require 'anemone'
 
-#location = "/data/crawl/ta/"
-
-#write_loc = location + "data_ta"
-#output_file = location + "hotels_page.txt"
-#input_file = location + "all_hotels_in_a_city.txt"
-
 #
 # Crawl and extract hotels link on city hotels pages and output the hotels urls
 #
