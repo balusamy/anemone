@@ -118,6 +118,11 @@ so that is looks like this:
 ========================
 
 
+xpath tips:
+==========
+http://ripwiki.pbworks.com/w/page/8766817/XPathTips
+
+
 
 
 

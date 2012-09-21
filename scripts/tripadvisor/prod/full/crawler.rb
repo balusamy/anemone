@@ -103,24 +103,23 @@ class Crawler
     FileUtils.mkdir_p(@feed_location) 
   end
 
-  def process_page(page, patterns)
+  def self.process_page(page, patterns)
     html_content = []
     patterns.each do |p| 
       node = page.doc.xpath(p)
       node.each do |attr|
-        html_content << attr.text
+        html_content << attr.text.strip
       end
     end
     html_content
-
   end
 
   def generate_queue_urls(page)
-    process_page(page, @@queue_patterns).map { |x| x = page.to_absolute(x) + x } 
+    Crawler.process_page(page, @@queue_patterns).map { |x| x = page.to_absolute(x) + x } 
   end
 
   def extract_content(page)
-    process_page page, @@extract_patterns
+    Crawler.process_page page, @@extract_patterns
   end
 
   def run(source)
@@ -154,9 +153,8 @@ class Crawler
       end
     end
 
-    puts @@content
-    @@content.uniq!
     @adapter_methods.custom_writer(@config, @@content)
+
   end
 
 end
