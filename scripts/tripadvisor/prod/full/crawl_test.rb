@@ -27,6 +27,12 @@ Choice.options do
     default "test"
   end
 
+  option :output, :required => false do
+    short "-o"
+    long "--output"
+    desc "output file. Default: STDOUT"
+  end
+
 end
 
 u = Choice.choices[:url]
@@ -47,8 +53,9 @@ end
 
 s = Choice.choices[:source] 
 q = Choice.choices[:queue_pattern]
+o = Choice.choices[:output]
 
 engine = Crawler.new()
-engine.crawl_test(u, s, p, q)
+engine.crawl_test(u, s, o, p, q)
 
 

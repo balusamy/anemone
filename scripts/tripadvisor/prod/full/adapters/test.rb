@@ -1,6 +1,15 @@
 require 'nokogiri'
 
 class Test
+
+  # initialize source adapter resources
+  def self.init(config)
+  end
+
+  # close source adapter resources
+  def self.destroy(config)
+  end
+
   # list of urls to pass to the crawler
   def self.url_list(config)
   end
@@ -22,18 +31,14 @@ class Test
   def self.queue_patterns()
   end
 
-  def self.custom_writer(config, data)
-    #puts "in custom_writer"
-    ofd = STDOUT
+  # ofd - output file descriptor
+  def self.custom_writer(config, ofd, data)
     ofd.puts data
-    ofd.close
   end
+
 end
 
 # Create a wrapper anemone to test the adapter functions here
 #puts Test.url_list
-
-
-
 
 

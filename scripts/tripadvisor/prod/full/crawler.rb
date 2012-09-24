@@ -33,6 +33,7 @@ class Crawler
   @force_download = false
   @num_threads = 8
   @jobid = 1
+  @ofd = nil
 
   def initialize(args = {})
     args.each do |k,v|
@@ -40,12 +41,18 @@ class Crawler
     end
   end
 
-  def crawl_test(url, source, ep = [], qp = [], conf = "config_test.yml")
+  def crawl_test(url, source, outputfile, ep = [], qp = [], conf = "config_test.yml")
 
     @config = (YAML::load_file conf)['test']
 
     @source = source
     @adapter_methods = get_adapter
+
+    if outputfile.nil? 
+        @ofd = STDOUT
+    else
+        @ofd = File.new(outputfile, "w") 
+    end
 
     # cmd line arg takes precedence
     if !ep.nil? 
@@ -68,6 +75,7 @@ class Crawler
       @input_urls = @adapter_methods.url_list(@config)
     end
 
+    @adapter_methods.init(@config)
     create_directories
     crawl_engine
   end
@@ -122,15 +130,29 @@ class Crawler
     Crawler.process_page page, @@extract_patterns
   end
 
+  # use this to generate list of urls for extraction. This would store the urls with a tag and tag will be used to query urls for extraction
+  # or do we use the anemone -> add_to_link_queue() to store the urls?  Also deq should just set a timestamp on the url.
+  def write_urls_db()
+  end
+
+  def close_all()
+    # call adapter destroy first
+    @adapter_methods.destroy(@config)
+    @ofd.close
+  end
+
   def run(source)
     setup source
     create_directories
     crawl_engine
+    close_all
   end
 
   def crawl_engine
     Anemone.crawl(@input_urls, :depth_limit => @depth_limit, :verbose => @verbose, :crawl_subdomains => @crawl_subdomains, :write_location => @write_location, :force_download => @force_download, :threads => 8, :jobid => 1) do |anemone|
       anemone.on_every_page do |page|
+
+        @@content = []
 
         if (!@@queue_patterns.nil?)
           urls = generate_queue_urls(page)
@@ -149,14 +171,14 @@ class Crawler
         page_data = @adapter_methods.custom_extract(page)  
         @@content = @@content + page_data if !page_data.nil?
 
+        # Call custom_write for every page
+        @adapter_methods.custom_writer(@config, @ofd, @@content)
+
         page.discard_doc! true
+
       end
     end
-
-    @adapter_methods.custom_writer(@config, @@content)
-
-  end
-
-end
+  end 
+end 
 
 
