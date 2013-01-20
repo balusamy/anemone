@@ -149,7 +149,11 @@ class Crawler
   end
 
   def crawl_engine
-    Anemone.crawl(@input_urls, :depth_limit => @depth_limit, :verbose => @verbose, :crawl_subdomains => @crawl_subdomains, :write_location => @write_location, :force_download => @force_download, :threads => 8, :jobid => 1) do |anemone|
+=begin
+    Anemone.crawl(@input_urls, :depth_limit => @depth_limit, :verbose => @verbose, :crawl_subdomains => @crawl_subdomains, :write_location => @write_location, :force_download => @force_download, :threads => 8, :jobid => 1, :user_agent => "	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:16.0) Gecko/20100101 Firefox/16.0") do |anemone|
+=end
+    Anemone.crawl(@input_urls, :depth_limit => @depth_limit, :verbose => @verbose, :crawl_subdomains => @crawl_subdomains, :write_location => @write_location, :force_download => true, :threads => 8, :jobid => 1, :user_agent => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:16.0) Gecko/20100101 Firefox/16.0") do |anemone|
+#    Anemone.crawl(@input_urls, :depth_limit => @depth_limit, :verbose => @verbose, :crawl_subdomains => @crawl_subdomains, :write_location => @write_location, :force_download => true, :threads => 8, :jobid => 1) do |anemone|
       anemone.on_every_page do |page|
 
         @@content = []

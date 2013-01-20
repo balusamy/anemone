@@ -1,6 +1,7 @@
 require 'nokogiri'
 
 class Test
+  @print_count = 0
 
   # initialize source adapter resources
   def self.init(config)
@@ -16,6 +17,26 @@ class Test
 
   # write complex extraction rules
   def self.custom_extract(page)
+=begin
+    inline = page.body
+=end
+=begin
+    data   = inline.grep(/Travel.objects.smartMapPanel/).grep(/lon/)
+    if (data.any?) 
+      fields = data[0].split(",")[14..15]
+      puts "url:#{page.url.to_s}, #{fields[0].gsub!(/"/, '')}, #{fields[1].gsub!(/"/,'')}"
+    end
+=end
+=begin
+    data   = inline.grep(/YAHOO.Travel.objects.bookingWidgetprefills/)
+    if (data.any?) 
+      fields = data[0].split(",")[1..2]
+      t0 = fields[0].gsub!(/'/, '').gsub!(/cityName:/, '').strip.downcase
+      t0.gsub!(/ /, '-')
+      t1 = fields[1].gsub!(/'/, '').strip.downcase
+      puts "#{page.url.to_s}	#{t0}-#{t1}"
+    end
+=end
     #puts "in custom_extract"
   end
 
@@ -34,6 +55,8 @@ class Test
   # ofd - output file descriptor
   def self.custom_writer(config, ofd, data)
     ofd.puts data
+    @print_count += 1
+    ofd.flush if (@print_count % 10) 
   end
 
 end

@@ -18,7 +18,7 @@ production:
   database: productiondb
   numprocesses: 8
   numfiles: 8
-  datadir: /data/projectz/prod/
+  datadir: /data/projectz/test/
 
 #  sitedata_dir: /data/projectz/test/trip
 #  crawled_dir: /data/projectz/test/trip/crawl
