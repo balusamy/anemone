@@ -1,0 +1,807 @@
+Yelp URL Slug			san-francisco	la	nyc	chicago	san-diego	san-jose	seattle	boston	austin	las-vegas	philadelphia	portland	houston	sacramento	honolulu	atlanta	oc	denver	dallas	phoenix	miami
+Search Terms	Popularity	Average Ranking	San Francisco	Los Angeles	New York	Chicago	San Diego	San Jose	Seattle	Boston	Austin	Las Vegas	Philadelphia	Portland	Houston	Sacramento	Honolulu	Atlanta	Orange County	Denver	Dallas	Phoenix	Miami
+Brunch	21	23.2380952380952	8	12	5	8	18	42	14	6	13	78	8	15	19	24	73	17	18	16	15	56	23
+Food	21	10.4285714285714	7	4	10	10	3	3	8	10	5	13	9	5	10	10	9	12	45	12	10	9	15
+Happy Hour	21	32.0	14	16	20	71	19	36	10	67	18	87	38	7	11	16	32	48	64	9	23	21	45
+Thai	21	26.1428571428571	12	11	11	13	11	11	11	25	31	41	18	10	27	18	30	32	95	27	26	24	65
+Breakfast	21	10.0952380952381	10	8	14	11	4	13	6	9	9	9	13	2	16	12	4	16	13	6	11	6	20
+Restaurants	21	1.0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+Italian Restaurant	21	36.3333333333333	19	24	17	20	23	23	33	24	54	42	19	34	42	40	40	92	33	48	56	26	54
+Restaurant	21	8.09523809523809	5	5	4	3	9	4	7	3	8	17	5	9	8	13	7	7	28	8	5	10	5
+Lunch	21	10.4761904761905	3	6	3	7	7	9	3	4	4	32	4	4	5	4	6	9	79	4	4	4	19
+Massage	21	35.3333333333333	23	20	30	23	16	14	30	46	44	38	33	30	38	22	11	47	47	46	53	39	92
+Pizza	21	11.8095238095238	9	7	8	5	6	6	9	12	7	18	6	8	14	6	24	13	57	5	6	5	17
+Italian	21	35.1904761904762	20	21	12	15	25	39	27	14	45	48	14	38	36	76	20	67	67	34	45	37	39
+Dinner	21	5.61904761904762	2	3	2	4	5	7	2	2	6	12	3	3	2	7	5	6	20	3	2	8	14
+Sushi	21	5.19047619047619	4	2	6	6	2	2	5	7	10	5	7	6	4	5	3	8	3	7	3	7	7
+Chinese	20	26.4	17	30	16	16	27	18	31	29	25	40	15	33	22	21	54	30		26	30	18	30
+Seafood	20	51.35	27	53	94	66	26	66	19	16	84	80	79	45	37	73	29	52	42		46	62	31
+Mexican Food	20	42.65	45	25	66	30	13	25	41	85	17	55	61	35	41	17	64	97		29	28	13	66
+Mexican	20	31.45	25	26	19	14	15	29	25	38	20	79	22	29	28	28	69	31		19	29	16	68
+Hair Salons	20	51.35	39	38	47	29	29	24	47	40	52		42	41	60	34	92	74	97	54	86	42	60
+Chinese Food	20	26.4	16	19	28	19	10	15	24	27	21	44	26	16	29	8	60	39		24	52	17	34
+Pho	19	36.7368421052632	18	18	89	99	12	5	12		39	71	29	17	31	14	19	78	44	15	37	51	
+Bars	19	20.1052631578947	6	10	7	9	17	61	13	8	22		11	12	18	25	37	22		17	20	29	38
+Dentist	19	49.5263157894737	36	31	64	24	20	16	34	64	30		66	62	50	26		63	85	37	98	47	88
+Steak	19	54.8421052631579	58	50	40	42	51	46	57	58	53	21		71	51	100	56	81	63	56	34	54	
+Coffee	18	34.1111111111111	13	22	15	22	32	44	16	30	27		23	11	47	45	80	44		25	84	34	
+Cheap Dinner	18	56.1111111111111	64	60	25	37	61		48	43	71	91	35	44	66	83	45	46		59		53	79
+Delivery	18	33.1111111111111	26	14	87	26	28	84	18	48	14		25	26	33	51		35		10	32	27	12
+Best Breakfast	18	33.8888888888889	33	61	88	53	14		54	78	24	2	17	19	9	15	14			13	73	22	21
+Bakery	18	62.3333333333333	49	36	34	39	64	32	39	79	100		65	61	97	42	57			70	85	83	90
+Bar	18	39.5555555555556	11	17	9	12	38	76	23	15	57		20	24	49	77	86	49		31	60	58	
+Nightlife	17	31.8823529411765	89	44		38	36	70	32		41	34		18	13	31	31	2		20	12	15	16
+Indian Food	17	44.0	35	42	46	28	22	31	38	47	36		52	40	63	39		51		58	68	52	
+Hotels	16	53.5625	31	51	33	83	30		51	100	76	26		28		52	26	90			96	60	24
+Redbox	16	35.6875				91	43	57	83		50	16	34	23	3	20	81	37		14	7	3	9
+Thai Food	15	60.2	54	29	91	47	35	52	43	55	91		92	42		64				87	71	50	
+Indian	15	59.6	52	67	27	46	55	37	60	54	69		37	81	68			57		96	88		
+Ramen	15	33.8	15	13	18		24	12	88	28	29	64	28	27		11	8	94	48				
+Spa	14	80.2142857142857	86	79	83	80	75	88	85			46		97	87		36	100			97		84
+Korean	14	57.5	42	34	31	78	91	22	71	92			54		69	43	23	85			70		
+Dry Cleaners	14	65.8571428571429	79	72	80	50	58	71	69	77	60		48		59	53				61		85	
+Craigslist	13	31.1538461538462				21	74	19	4	13	11		10		17	60		61	52	57			6
+Chinese Delivery	12	56.4166666666667		86		84	47		50		12		68	52	91					22	40	31	94
+Diners Drive Ins And Dives	12	37.8333333333333	37			32	77			17	32	8	21	22		29		66			19	94	
+Japanese Restaurant	12	50.0833333333333	32	43	37		70	20	62			67	97	83		48	10		32				
+Nail Salons	12	70.1666666666667	72	54	78	59	41	68							75	66	70				94	72	93
+Pizza Delivery	12	57.5	43	89		85	56		36		59		98	25		57				35	62	45	
+18 And Over Clubs	12	33.5		23					56		40	19	46	80	39	35		14	2	21	27		
+Korean Bbq	12	59.0833333333333	88	9		55	39	34	82				78		74	68	85		9	88			
+Soup	12	65.8333333333333	48	49	45	62	60	72	89		87		83	46		50				99			
+Burgers	12	69.4166666666667	73	55	75	54	65		75		82			63	79	44					78	90	
+Hair Salon	11	63.2727272727273	77	63	48	51	46	55		41			44		89		82						100
+Haircut	11	56.3636363636364	41	58		48	62	41	61	37	64		58	96	54								
+Breakfast Restaurants	10	62.7		98			48			82		43		66		81	38	76		49		46	
+Yoga	10	72.1	55	62	90	70	83		66	89			73	59						74			
+Best Restaurants	10	26.0	28						44			11	56		34	2	2	3		38	42		
+Cafe	10	61.3	21	32	26	82	82	91	58	56			88	77									
+Best Tattoo Shops	10	35.9		27	29	44	73	65	29			7			35				36		14		
+Cooking Classes	9	63.1111111111111					42			33			94	53				26		100	69	75	76
+Vegetarian	9	81.1111111111111	83	81	54	77	100		76	95			69	95									
+Restaurants With A View	9	70.7777777777778	66	74	49	79	97										72		96		72		32
+Burger	9	78.1111111111111	67	69	36	67	96		93					86	100					89			
+Bbq	9	56.7777777777778		84			63	56			16				30	85		75			25	77	
+Japanese	9	53.3333333333333	34	39	22		72	28	98	87						87	13						
+Hotel	9	68.2222222222222	51	87	77		68		91			60		60			59						61
+Best Brunch	9	25.2222222222222		47					49	5	23	29	24					21		18			11
+Fun Date Ideas	8	25.25							53	31					7			4	21	50	18		18
+Mexican Restaurant	8	70.875		93		68	49	73							90	89				72		33	
+Indian Restaurant	8	71.0						26		84		92	40		72			73			99	82	
+Restaurants Downtown	8	51.625	84	97				45	55							23		19		36	54		
+Dim Sum	7	54.5714285714286	22	64				30	63	91						38	74						
+Gym	7	77.2857142857143	87	88	86	40		97	45											98			
+Dessert	7	76.5714285714286	68	59	57		66	95								98	93						
+Halloween Costumes	7	37.0	24	28		72	8		35	45													47
+Coffee Shop	7	68.0	95		39		98		80		48			39						77			
+Sports Bars	7	78.7142857142857	29	100				93	87					70		92						80	
+Costume Store	6	54.8333333333333	70	76						71			64	20						28			
+Sunday Brunch	6	48.3333333333333									42				55			84	4		49		56
+Electrician	6	82.1666666666667						67			90				98	67				95		76	
+Fun Things To Do On A Saturday Night	6	38.0											76		48			24		30	36	14	
+Food Trucks	6	43.1666666666667									66	94	27	32	24						16		
+Best Pizza	6	66.5							72			33			56	93						64	81
+Consignment Shops	6	64.0									56		90	79					25	42	92		
+Buffet	6	50.8333333333333					85	48				3				74	21		74				
+Tattoo Shops	6	63.3333333333333					57							37		70			68			61	87
+Swinger Clubs	6	19.5										6						5	10	82		11	3
+Best Happy Hour	6	51.5		73					17		73			54			41			51			
+Construction	6	62.6666666666667													65	54		69			76	59	53
+Pumpkin Patch	6	35.0		52		25	31	10	46							46							
+Fun Things To Do	6	29.6666666666667		40								14	31	14		3				76			
+Beauty Salon	5	66.4													77			42		84	77		52
+Best Places To Eat	5	48.6			84		21	64		26												48	
+Asian Supermarket	5	54.4																40	86	53	58	35	
+Sandwiches	5	73.0	40	82			71	94						78									
+Fun Restaurants	5	43.4			24					51		59									35		48
+5 Star Restaurants	5	56.6													67	96		18			65		37
+Tacos	5	75.4		56		94					72										89	66	
+Movers	5	87.6				95	84				75									93		91	
+Best Lunch	5	37.6										27		91				15		11		44	
+Vietnamese Restaurant	5	59.2	47					21							70	78			80				
+Swingers Club	5	53.2					50						74	56		62			24				
+Zumba Classes	5	60.0											75		58				71			74	22
+Tapas	4	56.25	76		38	41				70													
+Thai Restaurant	4	81.0	99	77			95	53															
+Private Party Venues	4	50.25							90				47		21			43					
+Thanksgiving Dinner	4	88.5	97				87	78	92														
+Bars And Lounges	4	61.5	61	46	52	87																	
+Affordable Wedding Venues	4	33.5														30			17			36	51
+Auto Repair	4	74.75					54	81			80					84							
+Tailor	4	66.0			76	76				50			62										
+Halloween Store	4	50.5		15		58		38								91							
+Best Mexican Food	4	60.25					86				46									43	66		
+Salad	4	73.75	62	70	65						98												
+	3	52.6666666666667								32				68			58						
+Chinese Buffet	3	62.0									63				80							43	
+Cheap Massage	3	72.3333333333333													95						81	41	
+Shellac Nails	3	77.6666666666667						89			68				76								
+Korean Restaurant	3	91.0		92				92									89						
+Toms Shoes	3	59.6666666666667					78		65				36										
+Vietnamese	3	69.0	60					62							85								
+Best Burger	3	51.3333333333333														65						25	64
+Vegan	3	69.3333333333333		65									100	43									
+Clothing Boutiques	3	76.6666666666667															61			80			89
+Night Clubs 18 And Over	3	44.0														33	66				33		
+Eyebrow Threading	3	91.6666666666667											95		92							88	
+Hip Hop Clubs	3	52.6666666666667										50	57								51		
+Best Dim Sum	3	68.0							59	74			71										
+Lunch Restaurants	3	82.3333333333333												67		88				92			
+Romantic Restaurant	3	59.0								97							49				31		
+Passport Photos	3	85.6666666666667							81	90										86			
+Cheap Wedding Venues	3	43.3333333333333							74										12		44		
+Halloween Costume Stores	3	44.3333333333333			41			86											6				
+Call Girls	3	44.0			81							15											36
+Haunted Houses	3	16.3333333333333						27						13		9							
+Fun Things To Do On Date Night	3	53.0												48	61								50
+Lunch Downtown	3	67.6666666666667												72		90				41			
+Used Book Stores	3	83.3333333333333														99		68		83			
+Couples Cooking Classes	3	51.3333333333333											89						8		57		
+Cupcakes	3	84.3333333333333						90			92											71	
+Late Night Delivery	3	59.6666666666667									70			65						44			
+Wine Bar	3	57.0	50		23	98																	
+Used Furniture Stores	3	57.6666666666667														58			92	23			
+Gay Bath House	2	75.5								94												57	
+Carpet Cleaning	2	86.5					99	74															
+Cheap Motels	2	69.5			56			83															
+Best Hair Salon	2	50.0								76											24		
+Used Tires	2	53.5																	72				35
+18 And Over Night Clubs	2	29.5																55					4
+Best Bbq	2	42.0									37										47		
+Cooking Class	2	67.0			92				42														
+Fun Things To Do On A Friday Night	2	38.0																54	22				
+Gun Shop	2	47.0		68															26				
+18 And Over Dance Clubs	2	77.0																	84			70	
+Uchi	2	65.5									79				52								
+Healthy Restaurants	2	77.0													64						90		
+Swingers Bars	2	60.0										39			81								
+North Face Outlet	2	70.0				56			84														
+Kids Activities	2	86.5						98				75											
+Iphone Repair	2	84.0					90												78				
+Best Steakhouse	2	29.5										36			23								
+Brewery	2	66.0												51						81			
+Asian Grocery Stores	2	57.5																83		32			
+Snooze	2	81.0					89													73			
+Starbucks	2	78.0		96				60															
+Shabu Shabu	2	64.5		75															54				
+Best Bars	2	43.5									38					49							
+Costume Rentals	2	29.0		35															23				
+Latin Night Clubs	2	63.0										88										38	
+Best Italian Restaurants	2	23.5													6						41		
+Best Seafood Restaurant	2	51.0					81		21														
+Best Sushi	2	70.5											91	50									
+Hiking Trails	2	81.0															94					68	
+Institute For Integrative Nutrition	2	73.0	53		93																		
+Wells Fargo Bank	2	93.0													93							93	
+Chinese Restaurant	2	72.5	82					63															
+Byob	2	10.0				18							2										
+Seafood Restaurant	2	97.0							96	98													
+Jpmorgan Chase Bank	2	77.0			97										57								
+Car Wash	2	66.5		48				85															
+Best Chinese Food	2	74.0	71																77				
+Lunch Spots	2	74.5												49								100	
+Party Venues	2	67.0														59	75						
+Indian Grocery Store	2	92.5													99							86	
+Gift Shop	2	97.0													96			98					
+Baby Shower Venues	2	61.0																	31				91
+Best Birthday Cake	2	38.0																	15		61		
+Hip Hop Dance Class	2	75.5											87								64		
+Vegan Restaurants	2	77.0											70	84									
+Best Japanese Restaurant	2	55.0										76					34						
+Ocean View Restaurant	2	67.5																	93				42
+Chinese Food Delivery	2	47.5																			75	20	
+Best Men's Haircut	2	87.5			100					75													
+Food Truck	2	41.0																	50			32	
+New Restaurants	2	36.5													26	47							
+Asian	2	81.0									95									67			
+Men's Haircut	2	54.0											60								48		
+Live Music Venues	2	28.5														36					21		
+Cheap Motel	2	77.0		83													71						
+Best Sushi Restaurant	2	55.5										65					46						
+All You Can Eat Crab Legs	2	51.5																36					67
+Adult Massage	2	68.0										66						70					
+Monday Night Specials	2	86.5																82			91		
+Shoe Repair	2	74.0			79	69																	
+Adult Video Stores	2	88.0												94							82		
+Car Service	2	76.5		91	62																		
+Couples Massage	2	55.0										45								65			
+Downtown Restaurants	2	73.5										82										65	
+Lounge	2	75.0		78	72																		
+Haunted House	2	59.5						50		69													
+Vietnamese Coffee Shop	2	62.5						35											90				
+Lesbian Bar	2	74.0																50				98	
+Best Clubs	2	44.0								66		22											
+18 And Over Dance Club	2	68.5				74										63							
+Affordable Apartments For Rent	1	63.0	63																				
+Fun Birthday Ideas	1	61.0			61																		
+Old City Restaurants	1	99.0											99										
+Guy Fieri	1	42.0			42																		
+Surfboard Rental	1	68.0															68						
+Best Restaurant	1	40.0						40															
+Cheap Eats	1	22.0															22						
+Bars South Broadway	1	94.0																		94			
+18 To Enter Night Clubs	1	39.0											39										
+Side Street Inn	1	27.0															27						
+Trendy Restaurant	1	73.0			73																		
+Pizzeria Bianco	1	96.0																				96	
+Club Downtown	1	40.0																				40	
+Upscale Black Hair Salons	1	45.0																45					
+Adult Entertainment For Couples	1	10.0										10											
+Top Restaurants Downtown	1	2.0				2																	
+Where To Watch Laker Game	1	91.0																	91				
+Linger	1	33.0																		33			
+Punk Clothing Stores	1	51.0																	51				
+Pine State Biscuits	1	99.0												99									
+Breakfast & Brunch	1	98.0												98									
+Ft33	1	93.0																			93		
+Bottega Louie	1	33.0		33																			
+Boiling Crab Restaurant	1	87.0						87															
+Best Thrift Shops In	1	52.0								52													
+H&m Stores	1	44.0															44						
+Buffalo Wild Wings	1	33.0					33																
+Best Philly Cheesesteak	1	12.0											12										
+Dinner And Live Jazz	1	20.0																20					
+Best Byob	1	53.0											53										
+Best Deep Dish Pizza	1	17.0				17																	
+Marina Fish House	1	31.0												31									
+Jacuzzi Suites	1	99.0										99											
+Dance Classes	1	99.0								99													
+Park Tavern	1	80.0	80																				
+Salon	1	100.0				100																	
+Places To Take Pictures	1	5.0																	5				
+Best Internet Service Provider	1	77.0							77														
+Alan Wongs Restaurant	1	97.0															97						
+Toco Hills Shopping Center	1	79.0																79					
+Agora	1	85.0									85												
+Open Mic	1	88.0																88					
+Best Lunch Spots	1	35.0									35												
+Michigan Avenue Restaurants	1	27.0				27																	
+Indian Clothing Stores	1	46.0													46								
+Teppanyaki	1	58.0																	58				
+Fogo De Chao	1	53.0								53													
+Lucky Belly	1	39.0															39						
+Rent A House For A Party	1	63.0																			63		
+Golden Corral	1	28.0										28											
+Sewing Classes	1	65.0																	65				
+Free Pet Vaccination	1	79.0																				79	
+Shows	1	37.0										37											
+Washington Street Restaurants	1	88.0													88								
+Clyde Common	1	74.0												74									
+Country Line Dancing	1	62.0																	62				
+Record Store	1	63.0																					63
+Hip Hop Night Clubs	1	58.0																58					
+Record Stores	1	91.0																		91			
+Birthday Dinner	1	93.0																93					
+Cheap Buffet	1	69.0										69											
+Costco	1	96.0						96															
+Best Italian Restaurant	1	23.0										23											
+101 And I-17	1	69.0																				69	
+Oil Change	1	44.0					44																
+Singles Bar	1	97.0									97												
+Diners Drive In And Dives	1	70.0																	70				
+Restaurants At The Domain	1	3.0									3												
+Mgm Grand	1	77.0										77											
+Amada	1	49.0											49										
+Rush Street Restaurants	1	73.0				73																	
+Natomas Restaurants	1	27.0														27							
+Restaurants Near	1	88.0								88													
+Spa Castle	1	59.0																			59		
+Dog Boarding	1	47.0									47												
+Korean Spa	1	73.0																	73				
+Puerto Madero Brickell	1	73.0																					73
+16th Street Mall Restaurants	1	2.0																		2			
+Top Steakhouse Restaurants Downtown	1	35.0				35																	
+Best West Village Restaurant	1	71.0			71																		
+Orphanage	1	82.0																	82				
+Afternoon Tea	1	35.0								35													
+Ichiriki	1	100.0															100						
+Professional Services	1	43.0			43																		
+Avec	1	49.0				49																	
+Slurping Turtle	1	86.0				86																	
+Caesars Palace Buffet	1	31.0										31											
+Teriyaki	1	37.0							37														
+Liquor Store	1	63.0											63										
+Michelin Star Restaurants	1	25.0																					25
+Colored Contacts	1	83.0																	83				
+Tuesday Night	1	57.0																					57
+Byo	1	77.0											77										
+Restaurants Nw 23rd	1	55.0												55									
+Cheesesteak	1	86.0											86										
+Breakfast Downtown	1	89.0																89					
+Restaurants Near Airport	1	23.0																23					
+Beast	1	93.0												93									
+Best All You Can Eat Sushi	1	47.0										47											
+Baby Stores	1	74.0																					74
+Wynn Buffet	1	56.0										56											
+Best New Restaurants	1	34.0									34												
+Adult Toy Stores	1	68.0										68											
+Best Birthday Cakes	1	55.0									55												
+Gary Danko	1	75.0	75																				
+The Spence	1	53.0																53					
+Indoor Rock Climbing	1	75.0																	75				
+Reclaimed Wood	1	53.0																	53				
+Best Place To Eat	1	19.0														19							
+Target	1	91.0	91																				
+Rooftop Bar	1	87.0																87					
+The Table	1	79.0						79															
+Restaurant 30th St Station	1	45.0											45										
+Cheap Clothing Stores	1	59.0			59																		
+18+ Night Clubs	1	38.0	38																				
+Sushi Buffet	1	80.0														80							
+Neptune Oyster	1	83.0								83													
+Yakiniku	1	90.0															90						
+Stone Crabs	1	71.0																					71
+Best Place To Watch Football	1	99.0																99					
+Hook And Ladder	1	32.0														32							
+Best Pie	1	76.0																	76				
+Nopa	1	30.0	30																				
+Best Beaches	1	80.0					80																
+Adult Theater	1	73.0													73								
+Michelin-starred Restaurant	1	68.0							68														
+Indoor Playgrounds	1	38.0																	38				
+The Drag Restaurants	1	83.0									83												
+Safety Check	1	33.0															33						
+Best Sports Book	1	70.0										70											
+Restaurants With Live Jazz/blues	1	38.0																			38		
+Best Cuban Sandwich	1	75.0																					75
+18 Plus Clubs	1	21.0								21													
+Fascination	1	2.0																				2	
+Blow Dry Bar	1	72.0								72													
+Clubs For 18 And Over	1	63.0			63																		
+Outdoor Patio Restaurants	1	95.0																			95		
+Cheap Smog Check	1	77.0						77															
+Night Clubs For 18 Year Olds	1	27.0																27					
+Bellagio	1	57.0										57											
+Boutique Hotel	1	76.0												76									
+Best Lobster Roll	1	63.0								63													
+Uptown Bars	1	17.0																			17		
+Airport Shuttle Service	1	62.0															62						
+Thrift Shops	1	82.0														82							
+Toro Bravo	1	64.0												64									
+Tuesday Specials	1	67.0																			67		
+Walk In Clinics	1	81.0								81													
+Gynecologist	1	88.0									88												
+Open Mic Night	1	56.0																	56				
+Internet Providers	1	49.0									49												
+Unique Restaurants	1	49.0																	49				
+Golden Corral Buffet	1	45.0					45																
+Rioja	1	71.0																		71			
+Bars Downtown	1	83.0																			83		
+All Inclusive Resorts	1	8.0																					8
+Salty Sow	1	93.0									93												
+Wednesday Night	1	70.0																					70
+Brazilian Wax	1	96.0			96																		
+Sage	1	73.0										73											
+Bouchon	1	52.0										52											
+Brothels	1	33.0																					33
+Photography Classes	1	41.0																	41				
+Best Birthday Restaurants	1	79.0																			79		
+Pride And Joy	1	83.0																					83
+Hotel Suites With Jacuzzi In Room	1	75.0														75							
+Best Lunch Places	1	32.0													32								
+Best Clam Chowder Restaurant	1	49.0								49													
+Adult Stores	1	57.0												57									
+Art And Craft Stores	1	39.0								39													
+Spinning Classes	1	41.0																					41
+Little Italy Restaurants	1	59.0					59																
+Best Chinese Restaurant	1	81.0										81											
+Online Traffic School	1	39.0																	39				
+Trade	1	73.0								73													
+Steakhouse	1	86.0										86											
+Best Tattoo Parlors	1	15.0									15												
+Breakfast Waikiki	1	28.0															28						
+Dating Ideas	1	19.0									19												
+Tavernita	1	92.0				92																	
+Best Sunday Brunch	1	94.0									94												
+Best Steak In	1	61.0									61												
+Gay Bath Houses	1	19.0																	19				
+Osteria	1	67.0											67										
+Breakfast Burrito	1	64.0																		64			
+Knox Henderson Restaurant	1	22.0																			22		
+Midtown Restaurants	1	2.0																					2
+Low Income Apartments	1	47.0						47															
+Topless Pools	1	72.0										72											
+Buy Used Appliances	1	94.0																	94				
+Thanksgiving Brunch Buffet	1	67.0					67																
+Laser Tag	1	29.0																	29				
+Poke	1	53.0															53						
+10 Best Mid Town Restaurants	1	13.0			13																		
+Trader Joes	1	65.0															65						
+Things To Do With Kids	1	49.0										49											
+Oishii	1	56.0														56							
+Dance Classes For Adults	1	46.0																					46
+Screen Door	1	47.0												47									
+South Bay Shopping Center	1	18.0								18													
+"aarp Hartford"	1	59.0	59																				
+Long Term Airport Parking	1	49.0						49															
+Drink	1	96.0								96													
+Consignment Furniture	1	37.0																	37				
+Nicos Pier 38	1	98.0															98						
+Best Places For Lunch	1	22.0							22														
+Downtown Bars	1	89.0																				89	
+53 By The Sea	1	17.0															17						
+The Optimist	1	60.0																60					
+Han Dynasty	1	30.0											30										
+All You Can Eat Sushi	1	14.0																	14				
+Best Steakhouses	1	43.0									43												
+Le Pigeon	1	85.0												85									
+Airport Parking	1	17.0						17															
+Publix	1	85.0																					85
+Unique Wedding Venues	1	52.0																		52			
+Southern Food	1	91.0																91					
+Men's Suits	1	92.0																				92	
+Bachi Burger	1	30.0										30											
+Adalbertos Menu	1	69.0														69							
+Alinea	1	65.0				65																	
+Boutique Hotels	1	89.0									89												
+Bungee Jumping	1	95.0										95											
+Caesars Buffet	1	84.0										84											
+Vinyl Record Stores	1	69.0																	69				
+Flour And Water	1	98.0	98																				
+Used Cowboy Boots	1	82.0													82								
+Indoor Shooting Range	1	72.0														72							
+Cuban Food	1	29.0																					29
+Restaurants Near The Paramount Theater	1	40.0							40														
+18 And Up Night Clubs	1	52.0					52																
+Raku	1	96.0										96											
+Best Pho	1	95.0							95														
+Best Thrift Shops	1	80.0		80																			
+Wicked Spoon Buffet	1	63.0										63											
+Downtown	1	51.0						51															
+"aarp" "hartford Auto Insurance"	1	44.0	44																				
+Best Women's Clothing Stores	1	49.0																					49
+Dog Grooming	1	68.0																		68			
+Inexpensive Party Event Venues	1	28.0									28												
+State Bar	1	89.0				89																	
+Best Temp Agencies	1	51.0			51																		
+Juvia	1	86.0																					86
+Sports Bar	1	46.0	46																				
+Shaved Ice	1	96.0															96						
+Best Restaurants Downtown	1	37.0		37																			
+Chinatown	1	43.0																					43
+Restaurants Near Pantages Theater	1	41.0		41																			
+Uniqlo	1	42.0								42													
+Birthday Restaurants	1	95.0			95																		
+Salt Lick	1	77.0									77												
+Waterfront Restaurants	1	78.0																					78
+The Waikiki Airport Shuttle	1	16.0															16						
+Iphone Screen Repair	1	58.0			58																		
+Best Private Schools, Bay Area	1	58.0						58															
+Rainey Street Bars	1	58.0									58												
+Baby Consignment	1	87.0																				87	
+Andina	1	36.0												36									
+Raging Crab	1	50.0															50						
+Brickell Restaurants	1	10.0																					10
+Sunday Brunch Buffet	1	35.0																	35				
+Date Ideas	1	47.0																		47			
+Toro	1	59.0								59													
+Bars In Midtown	1	55.0																					55
+Specialized Bikes	1	99.0																					99
+Federal Donuts	1	41.0											41										
+Most Expensive Restaurant	1	62.0													62								
+Hibachi	1	80.0																			80		
+Mexican Grocery Stores	1	62.0																		62			
+Revel	1	78.0							78														
+Fette Sau	1	55.0											55										
+Bagels	1	68.0			68																		
+Empire State South	1	80.0																80					
+Fun Restaurant	1	25.0																25					
+Persimmon Picking	1	79.0					79																
+Steven Starr Restaurants	1	50.0											50										
+Searsucker	1	94.0					94																
+Small Wedding Venues Cheap	1	53.0													53								
+Mens Haircut	1	58.0																					58
+Westheimer Restaurants	1	25.0													25								
+Best Steak	1	41.0																41					
+Cuban	1	28.0																					28
+Shave Ice	1	91.0															91						
+Abercrombie & Fitch Outlet	1	60.0			60																		
+Lesbian Club	1	86.0																86					
+Hp Pavilion Parking	1	75.0						75															
+Jazz Clubs	1	64.0																64					
+Federal Pizza	1	28.0																				28	
+Trick Or Treat Hours	1	52.0				52																	
+Rainey Street	1	99.0									99												
+Burlesque Show	1	83.0										83											
+Carriage House	1	90.0				90																	
+Two Dollar Movie Theater	1	29.0																29					
+Costume Rental	1	55.0														55							
+Brew Pubs	1	88.0												88									
+El Vez	1	59.0											59										
+Cheap Banquet Halls	1	61.0																	61				
+Big Star	1	97.0				97																	
+Best Mens Haircut	1	65.0									65												
+Highlands Restaurants	1	85.0																		85			
+Top 20 Best Hip Hop Night Clubs	1	20.0													20								
+Best Bars In Downtown	1	71.0														71							
+B&h Camera	1	80.0																					80
+Designer Clothing Resale Shop	1	71.0													71								
+Ear Nose Throat Doctor	1	43.0																	43				
+Waikiki Restaurants	1	48.0															48						
+Furniture Stores	1	99.0						99															
+Sunda	1	81.0				81																	
+Food Trucks In	1	40.0																	40				
+Eyelash Extensions	1	76.0															76						
+Kids Party Venues	1	100.0						100															
+Animal	1	66.0		66																			
+Indoor Basketball Court	1	95.0																					95
+H Mart	1	37.0					37																
+Top Places To Eat	1	35.0															35						
+Hot Pot	1	82.0						82															
+Royal India Buffet	1	74.0									74												
+Melrose Ave Shops	1	90.0		90																			
+Prime 112	1	82.0																					82
+Topless Bars	1	89.0										89											
+Vintage Clothing	1	95.0																				95	
+Pok Pok	1	21.0												21									
+Restaurant Row	1	15.0															15						
+7th Street Restaurants	1	73.0																				73	
+Shake Shack	1	69.0			69																		
+Barley Swine	1	81.0									81												
+Publican	1	57.0				57																	
+Serious Pie	1	67.0							67														
+Bars With Live Music	1	11.0																11					
+Night Clubs Downtown	1	75.0				75																	
+Town	1	84.0															84						
+The House	1	93.0	93																				
+Best Place To Watch Giants Game	1	92.0	92																				
+Waterfall Hike	1	34.0																	34				
+T Shirt Printing	1	97.0														97							
+Dance Classes For Kids	1	99.0																				99	
+North Park Mall Restaurants	1	50.0																			50		
+Cougar Bar	1	66.0																	66				
+Paesanos	1	94.0														94							
+Top Lunch Spots	1	43.0				43																	
+Stand Up Paddle Board	1	51.0															51						
+Shellac Manicure	1	99.0							99														
+Jobs Hiring	1	98.0																					98
+Parking	1	85.0	85																				
+Limon	1	94.0	94																				
+Yolo	1	84.0											84										
+Best Night Club	1	44.0													44								
+Medical Marijuana Doctors	1	97.0																		97			
+Brunch Midtown	1	99.0			99																		
+Cheap Wedding Locations	1	93.0					93																
+Safety Inspection	1	42.0															42						
+Empire	1	22.0								22													
+Perch	1	45.0		45																			
+Sushi Ota	1	92.0					92																
+Seaport Restaurants	1	19.0								19													
+Steakhouses	1	53.0										53											
+Voodoo Donuts	1	69.0												69									
+Purple Pig	1	34.0				34																	
+Live Music Tonight	1	69.0					69																
+Delivery Food	1	78.0																		78			
+Au Cheval	1	36.0				36																	
+Handbag Repair	1	99.0		99																			
+Italian Byob	1	82.0											82										
+Latin Clubs	1	96.0																96					
+Restaurants Near Perimeter Mall	1	10.0																10					
+Best Spa	1	35.0										35											
+Best Place To Celebrate Birthdays	1	27.0																					27
+Gilt Bar	1	60.0				60																	
+Parking Downtown	1	28.0							28														
+Antique Stores	1	67.0																				67	
+Restaurants Near Grand Central	1	82.0			82																		
+Midtown Happy Hour	1	44.0			44																		
+Restaurants With Private Dining Rooms	1	30.0																	30				
+Unique Fun Dining Experiences	1	63.0																		63			
+Hip Hop Dance Classes	1	43.0													43								
+Lobster	1	68.0								68													
+Plate Lunch	1	78.0															78						
+Snorkeling	1	77.0															77						
+Fun Things To Do At Night	1	57.0		57																			
+Boiling Crab	1	43.0						43															
+Cheap Furniture	1	92.0												92									
+Delfina	1	78.0	78																				
+Top Chinese Food	1	80.0								80													
+Wayfare Tavern	1	74.0	74																				
+Dance Clubs 18 And Over	1	23.0																				23	
+Sushi Den	1	75.0																		75			
+Military Surplus	1	88.0					88																
+Wholesale Fashion Clothes	1	13.0																					13
+Tower Cafe	1	86.0														86							
+Lardo	1	90.0												90									
+Centurylink	1	86.0							86														
+Girl And The Goat	1	64.0				64																	
+Vintage Clothing Stores	1	60.0																	60				
+Liliha Bakery	1	95.0															95						
+Korean Bbq All You Can Eat	1	94.0		94																			
+Udon	1	67.0															67						
+Best North End Restaurant	1	11.0								11													
+Best Salads	1	84.0																				84	
+Best Cupcake	1	55.0																	55				
+Restaurants, Downtown	1	49.0																				49	
+Kinko's	1	52.0															52						
+Fun Places To Eat	1	97.0																				97	
+Tasty And Sons	1	82.0												82									
+Most Romantic Restaurant	1	40.0													40								
+Diner	1	35.0			35																		
+Capitol Hill Bars	1	64.0							64														
+Thanksgiving Buffet	1	59.0																	59				
+Mandalay Bay	1	100.0										100											
+6th Street	1	33.0									33												
+Puppy Training Classes	1	60.0																		60			
+Speakeasy	1	39.0																		39			
+Soup Kitchen, Volunteer	1	67.0			67																		
+Hash House A Go Go	1	62.0										62											
+678	1	63.0															63						
+Barbuzzo	1	43.0											43										
+Xoco	1	88.0				88																	
+Cucina Urbana	1	53.0					53																
+Sushi Hai	1	90.0																		90			
+Restaurants Union Square	1	55.0			55																		
+Booze Cruise	1	43.0															43						
+Tag	1	69.0																		69			
+Aria	1	90.0										90											
+Sipatea	1	80.0						80															
+Dispensaries	1	79.0														79							
+Underbelly	1	45.0													45								
+18 + Clubs	1	32.0			32																		
+Fun Date Night Ideas	1	16.0																	16				
+Slanted Door	1	56.0	56																				
+Old Town Restaurants	1	41.0														41							
+Pumpkin Patches	1	95.0		95																			
+18 Clubs	1	37.0														37							
+La Galleria 33	1	20.0								20													
+Cheap Breakfast	1	98.0										98											
+Walk In Medical Clinic	1	85.0											85										
+Bolsa	1	100.0																			100		
+Local 360	1	94.0							94														
+Byob Restaurants	1	32.0											32										
+Lofts For Rent	1	33.0																33					
+Best Massage	1	94.0													94								
+Swingers Clubs	1	9.0																			9		
+Event Venues	1	95.0																95					
+Tria	1	96.0											96										
+Massage Envy	1	63.0																				63	
+Serendipitously-closed	1	8.0																			8		
+Cab Companies	1	16.0											16										
+Smith Brothers Appliance Repair	1	46.0																	46				
+Bars Waikiki	1	55.0															55						
+Restaurants, Tremont Street	1	86.0								86													
+Restaurants, Copley Square	1	44.0								44													
+Furla	1	7.0																	7				
+10 Best Chelsea Restaurants	1	21.0			21																		
+English Afternoon Tea	1	89.0																	89				
+Bacchanal Buffet	1	20.0										20											
+Birthday Restaurant	1	99.0																	99				
+True Food	1	45.0																		45			
+Lululemon Outlet	1	97.0										97											
+Diners Drive-ins And Dives	1	26.0							26														
+Randolph Street Restaurant	1	33.0				33																	
+Restaurants Se Division	1	100.0												100									
+Amore Classic Ceramic Flat Iron	1	20.0							20														
+Nail Salon	1	85.0			85																		
+Ippudo	1	98.0			98																		
+Fill A Seat	1	39.0																			39		
+Best Inexpensive Places To Eat	1	93.0				93																	
+Clothing Optional	1	61.0										61											
+Restaurants Near Kimmel Center	1	81.0											81										
+State Bird Provisions	1	65.0	65																				
+Man Vs Food	1	66.0																		66			
+Inexpensive Wedding Venue	1	38.0																38					
+Good Places For Lunch	1	61.0								61													
+Spirit Halloween Stores	1	33.0						33															
+Currency Exchange	1	27.0																	27				
+Upscale Trendy Restaurants	1	84.0													84								
+Tokoname	1	47.0															47						
+Lola	1	70.0							70														
+Santana Row	1	54.0						54															
+Wi Spa	1	85.0		85																			
+Best Seafood Buffet	1	93.0										93											
+Best Shows	1	4.0										4											
+North End Restaurants	1	23.0								23													
+La Condesa	1	67.0									67												
+Wicked Spoon	1	51.0										51											
+Mon Ami Gabi	1	54.0										54											
+Chinatown Bus	1	51.0											51										
+Venues To Rent	1	62.0																62					
+Best Buffet	1	24.0										24											
+Scratch And Dent Appliances	1	78.0													78								
+Running Trails	1	51.0									51												
+Foreign Cinema	1	57.0	57																				
+Deli	1	70.0			70																		
+Top Italian Restaurants	1	52.0							52														
+Fill A Seat Dallas	1	30.0																				30	
+Paseo	1	73.0							73														
+South Street	1	77.0																					77
+Breakfast Tacos	1	26.0									26												
+Zero Zero	1	81.0	81																				
+Side Street Cafe	1	99.0															99						
+Yelp	1	40.0					40																
+Luau	1	25.0															25						
+Plumber	1	69.0						69															
+Best Breakfast Buffet	1	25.0										25											
+Resturants	1	15.0													15								
+Burrito	1	96.0	96																				
+Couple's Massage	1	87.0																			87		
+Abc Kitchen	1	74.0			74																		
+Vintage Stores	1	72.0																					72
+Hawaiian Food	1	18.0															18						
+Trails Smoke Shop	1	12.0																				12	
+South Broadway, Restaurants	1	40.0																		40			
+Cheesesteaks	1	72.0											72										
+Affordable Wedding Venue 100	1	34.0					34																
+Food Carts	1	58.0												58									
+Arts And Crafts Stores	1	50.0			50																		
+Best Breakfast Downtown	1	15.0							15														
+Best Place To Celebrate Birthday	1	28.0																28					
+Galleria 33	1	62.0								62													
+Uchiko	1	96.0									96												
+Black Clubs	1	65.0																65					
+Gluten Free Restaurants	1	79.0																		79			
+Country Western Bar	1	98.0																	98				
+Seafood Buffet	1	74.0										74											
+Zuma	1	59.0																					59
+Teen Clubs 16-18	1	56.0																56					
+Wedding Dress Rentals	1	87.0																	87				
+Windsor	1	81.0																				81	
+Baco Mercat	1	71.0		71																			
+Best Mexican Restaurant	1	57.0								57													
+Swinger's Club	1	12.0													12								
+Eggs N Things	1	87.0															87						
+Restaurants Davis Square	1	93.0								93													
+Over 40 Crowd Night Clubs	1	59.0																59					
+South Congress Hotels	1	78.0									78												
+Wedding Venues	1	81.0																	81				
+Root Down	1	55.0																		55			
+Two Urban Licks	1	71.0																71					
+Hookah Lounges	1	34.0																34					
+Waikiki Best Seafood Buffet	1	12.0															12						
+Imperial	1	73.0												73									
+Luxor	1	85.0										85											
+Coffee & Tea	1	87.0												87									
+Boulevard	1	90.0	90																				
+Santana Row Restaurants	1	8.0						8															
+Crabaholic	1	59.0						59															
+Bars To Meet Older Women	1	19.0																				19	
+Chinese Meggie	1	2.0									2												
+Tinto	1	93.0											93										
+Lotus Of Siam	1	58.0										58											
+Teen Night Clubs	1	26.0																					26
+Chinese Supermarket	1	97.0																					97
+Izakaya	1	88.0															88						
+Hookah Bar	1	72.0																72					
+Restaurants With An Water View	1	44.0																					44
+Restaurant Supply	1	83.0															83						
+Late Night Food	1	75.0												75									
+Midtown Bars	1	83.0													83								
+Zahav	1	80.0											80										
+Best Restaurants In Hillcrest	1	76.0					76																
+Motorcycle School	1	88.0																	88				
+House Of Prime Rib	1	69.0	69																				
+Rpm Italian	1	96.0				96																	
+Womens Boutiques	1	89.0												89									
+Bridal Dress Shops	1	95.0														95							
+Restaurants Near Galleria	1	55.0																			55		
+Fried Turkey	1	86.0									86												
+Firestone Restaurant	1	61.0														61							
+Sell Used Clothes	1	77.0																77					
+Michelin Restaurants	1	36.0								36													
+Untitled	1	63.0				63																	
+Cibo	1	55.0																				55	
+Swinger Bars	1	78.0																				78	
+Downtown Crossing Restaurants	1	65.0								65													
+Best Furniture Stores	1	100.0	100																				
+Best Ramen	1	79.0															79						
+6th Street Restaurants	1	62.0									62												
+Bus To Boston	1	53.0			53																		
+Canlis	1	100.0							100														
+Bar Brickell	1	62.0																					62
+Romantic Live Music Dancing Restaurant	1	86.0													86								
+Indian Clothing	1	69.0																					69
+Night Clubs 18	1	79.0							79														
+Mobile Dog Grooming	1	100.0																	100				
+Top Restaurants	1	13.0																			13		
+Happy Hour Brickell	1	40.0																					40
+Poppy	1	97.0							97														
+Dollar Theater	1	43.0																			43		
+Taco Tuesday	1	11.0																	11				
+New York To	1	34.0								34													
+Halloween Stores	1	31.0				31																	
+Balena	1	61.0				61																	
+South Beach Restaurants	1	96.0																					96
+Happy Hour Specials Uptown	1	74.0																			74		
+Best Coffee Shops	1	45.0				45																	
+Restaurants, South Station	1	60.0								60													
